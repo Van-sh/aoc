@@ -1,9 +1,10 @@
 mod day1;
+mod day2;
 
 use std::path::Path;
 
-const PATH: &str = "inputs/day1/input.txt";
+const PATH: &str = "inputs/day2/input.txt";
 
 fn main() {
-    day1::task2(Path::new(PATH));
+    day2::task2(Path::new(PATH));
 }
