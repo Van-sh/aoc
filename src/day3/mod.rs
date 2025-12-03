@@ -58,15 +58,9 @@ pub fn task2(input_file_path: &Path) {
             let max_num;
             let tmp;
 
-            let start_index = if max_joltage != 0 {
-                max_num_index + 1
-            } else {
-                0
-            };
+            (max_num, tmp) = find_max_in_arr_slice(&chars[max_num_index..(chars.len() - i)]);
 
-            (max_num, tmp) = find_max_in_arr_slice(&chars[start_index..(chars.len() - i)]);
-
-            max_num_index = start_index + tmp;
+            max_num_index += tmp + 1;
 
             max_joltage = max_joltage * 10 + max_num;
         }
