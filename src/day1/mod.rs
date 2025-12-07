@@ -1,15 +1,16 @@
 use std::{
     fs::File,
     io::{self, BufRead},
-    path::Path,
 };
 
+const PATH: &str = "inputs/day1/input.txt";
+
 #[allow(dead_code)]
-pub fn task1(input_file_path: &Path) {
+pub fn task1() {
     let mut dial_pos = 50;
     let mut zero_count = 0;
 
-    let file = File::open(input_file_path).unwrap();
+    let file = File::open(PATH).unwrap();
     let lines = io::BufReader::new(file).lines();
 
     for line in lines.map_while(Result::ok) {
@@ -33,11 +34,11 @@ pub fn task1(input_file_path: &Path) {
 }
 
 #[allow(dead_code)]
-pub fn task2(input_file_path: &Path) {
+pub fn task2() {
     let mut dial_pos = 50;
     let mut zero_count = 0;
 
-    let file = File::open(input_file_path).unwrap();
+    let file = File::open(PATH).unwrap();
     let lines = io::BufReader::new(file).lines();
 
     for line in lines.map_while(Result::ok) {

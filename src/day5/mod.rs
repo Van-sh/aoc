@@ -3,14 +3,15 @@ use std::{
     collections::BinaryHeap,
     fs::File,
     io::{self, BufRead},
-    path::Path,
 };
 
+const PATH: &str = "inputs/day5/input.txt";
+
 #[allow(dead_code)]
-pub fn task1(input_file_path: &Path) {
+pub fn task1() {
     let mut valid_ids = 0;
 
-    let file = File::open(input_file_path).unwrap();
+    let file = File::open(PATH).unwrap();
     let mut lines = io::BufReader::new(file).lines();
 
     let mut ranges = Vec::<(u64, u64)>::new();
@@ -61,10 +62,10 @@ impl PartialOrd for Range {
 }
 
 #[allow(dead_code)]
-pub fn task2(input_file_path: &Path) {
+pub fn task2() {
     let mut valid_ids = 0u64;
 
-    let file = File::open(input_file_path).unwrap();
+    let file = File::open(PATH).unwrap();
     let lines = io::BufReader::new(file).lines();
 
     let mut heap = BinaryHeap::new();

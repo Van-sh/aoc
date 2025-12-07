@@ -1,13 +1,12 @@
-use std::{fs::File, io::Read, path::Path};
+use std::{fs::File, io::Read};
+
+const PATH: &str = "inputs/day2/input.txt";
 
 #[allow(dead_code)]
-pub fn task1(input_file_path: &Path) {
+pub fn task1() {
     let mut invalid_id_sum = 0;
     let mut text = String::new();
-    let _ = File::open(input_file_path)
-        .unwrap()
-        .read_to_string(&mut text)
-        .unwrap();
+    let _ = File::open(PATH).unwrap().read_to_string(&mut text).unwrap();
 
     let ranges = text.trim().split(",").map(|range: &str| -> Vec<_> {
         range
@@ -40,13 +39,10 @@ pub fn task1(input_file_path: &Path) {
 }
 
 #[allow(dead_code)]
-pub fn task2(input_file_path: &Path) {
+pub fn task2() {
     let mut invalid_id_sum = 0;
     let mut text = String::new();
-    let _ = File::open(input_file_path)
-        .unwrap()
-        .read_to_string(&mut text)
-        .unwrap();
+    let _ = File::open(PATH).unwrap().read_to_string(&mut text).unwrap();
 
     let ranges = text.trim().split(",").map(|range: &str| -> Vec<_> {
         range
