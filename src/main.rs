@@ -9,5 +9,5 @@ pub mod day8;
 pub mod day9;
 
 fn main() {
-    day9::task1();
+    day9::task2();
 }
