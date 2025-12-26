@@ -51,7 +51,7 @@ pub fn task2() {
     frequencies[idx] = 1;
 
     for line in lines.map_while(Result::ok) {
-        let mut next_frequencies = Vec::from(frequencies.clone());
+        let mut next_frequencies = frequencies.clone();
         println!("{line}");
         for idx in 0..frequencies.len() {
             let frequency = frequencies[idx];
