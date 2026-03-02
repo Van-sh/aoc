@@ -1,10 +1,10 @@
 use std::{
-    collections::{HashMap, VecDeque},
     fs::File,
     io::{self, BufRead},
 };
 
 const PATH: &str = "inputs/day10/input.txt";
+const EPSILON: f64 = 1e-9;
 
 fn combination_util<T: Clone + std::fmt::Debug>(
     arr: &Vec<T>,
@@ -103,43 +103,134 @@ pub fn task1() {
     println!("{total_button_presses}");
 }
 
-fn find_all_presses(wiring_schematics: &Vec<Vec<usize>>, target: &Vec<usize>) -> usize {
-    let mut result = None;
-    let mut table = HashMap::new();
-    let initial_state = vec![0; target.len()];
-    table.insert(initial_state.clone(), 0);
-    let mut queue = VecDeque::from([initial_state]);
+fn find_all_presses(
+    wiring_schematics: &Vec<Vec<usize>>,
+    joltage_requirements: &Vec<usize>,
+) -> usize {
+    let matrix = Matrix::new(wiring_schematics, joltage_requirements);
+    let max = joltage_requirements.iter().max().unwrap() + 1;
+    let mut min = usize::MAX;
+    let mut values = vec![0; matrix.independents.len()];
+    dfs(&matrix, 0, &mut values, &mut min, max);
+    return min;
+}
 
-    while let Some(state) = queue.pop_back() {
-        let current_depth = table.get(&state).expect("Should not be missing").clone();
-        if state == *target {
-            result = Some(current_depth);
-            break;
-        }
-        // println!("{state:?}: {current_depth}");
-        for schematic in wiring_schematics {
-            let mut new_sum = state.clone();
-            let mut over_target = false;
-            for wire in schematic {
-                new_sum[*wire] += 1;
-                if new_sum[*wire] > target[*wire] {
-                    over_target = true;
-                    break;
+struct Matrix {
+    data: Vec<Vec<f64>>,
+    rows: usize,
+    cols: usize,
+    dependents: Vec<usize>,
+    independents: Vec<usize>,
+}
+
+impl Matrix {
+    fn new(wiring_schematics: &Vec<Vec<usize>>, joltage_requirements: &Vec<usize>) -> Self {
+        let rows = joltage_requirements.len();
+        let cols = wiring_schematics.len();
+        let mut data = vec![vec![0.0; cols + 1]; rows];
+
+        for (c, button) in wiring_schematics.iter().enumerate() {
+            for &r in button {
+                if r < rows {
+                    data[r][c] = 1.0;
                 }
             }
-            if over_target {
-                // println!("skipping {new_sum:?}");
+        }
+        for (r, &val) in joltage_requirements.iter().enumerate() {
+            data[r][cols] = val as f64;
+        }
+
+        let mut matrix = Self {
+            data,
+            rows,
+            cols,
+            dependents: Vec::new(),
+            independents: Vec::new(),
+        };
+        matrix.gaussian_elimination();
+        return matrix;
+    }
+
+    fn gaussian_elimination(&mut self) {
+        let mut pivot = 0;
+        let mut col = 0;
+        let mut pivot_cols = vec![false; self.cols];
+
+        while pivot < self.rows && col < self.cols {
+            let mut best_row = pivot;
+            for r in pivot + 1..self.rows {
+                if self.data[r][col].abs() > self.data[best_row][col].abs() {
+                    best_row = r;
+                }
+            }
+
+            if self.data[best_row][col].abs() < EPSILON {
+                col += 1;
                 continue;
             }
-            if let None = table.get(&new_sum) {
-                println!("{new_sum:?}");
-                queue.push_front(new_sum.clone());
-                table.entry(new_sum.clone()).or_insert(current_depth + 1);
+
+            self.data.swap(pivot, best_row);
+            self.dependents.push(col);
+            pivot_cols[col] = true;
+
+            let pv = self.data[pivot][col];
+            for val in &mut self.data[pivot][col..=self.cols] {
+                *val /= pv;
             }
+
+            for r in 0..self.rows {
+                if r != pivot {
+                    let factor = self.data[r][col];
+                    for c in col..=self.cols {
+                        self.data[r][c] -= factor * self.data[pivot][c];
+                    }
+                }
+            }
+            pivot += 1;
+            col += 1;
+        }
+        for c in 0..self.cols {
+            if !pivot_cols[c] {
+                self.independents.push(c);
+            };
         }
     }
 
-    return result.expect(&format!("Could not find presses for {target:?}"));
+    fn valid(&self, values: &[usize]) -> Option<usize> {
+        let mut total = values.iter().sum::<usize>();
+        for (row, &_dep_col) in self.dependents.iter().enumerate() {
+            let mut val = self.data[row][self.cols];
+            for (i, &ind_col) in self.independents.iter().enumerate() {
+                val -= self.data[row][ind_col] * (values[i] as f64);
+            }
+            if val < -EPSILON {
+                return None;
+            }
+            let rounded = val.round();
+            if (val - rounded).abs() > EPSILON {
+                return None;
+            }
+            total += rounded as usize;
+        }
+        return Some(total);
+    }
+}
+
+fn dfs(matrix: &Matrix, idx: usize, values: &mut Vec<usize>, min: &mut usize, max: usize) {
+    if idx == matrix.independents.len() {
+        if let Some(total) = matrix.valid(values) {
+            *min = (*min).min(total);
+        }
+        return;
+    }
+    let current_sum: usize = values[..idx].iter().sum();
+    for val in 0..max {
+        if current_sum + val >= *min {
+            break;
+        } // Pruning [1]
+        values[idx] = val;
+        dfs(matrix, idx + 1, values, min, max);
+    }
 }
 
 pub fn task2() {
