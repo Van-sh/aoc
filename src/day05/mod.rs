@@ -5,7 +5,7 @@ use std::{
     io::{self, BufRead},
 };
 
-const PATH: &str = "inputs/day5/input.txt";
+const PATH: &str = "inputs/day05/input.txt";
 
 #[allow(dead_code)]
 pub fn task1() {
@@ -41,24 +41,6 @@ pub fn task1() {
     }
 
     println!("{valid_ids}");
-}
-
-#[derive(Debug, Eq, PartialEq, Copy, Clone)]
-struct Range {
-    low: u64,
-    high: u64,
-}
-
-impl Ord for Range {
-    fn cmp(&self, other: &Self) -> Ordering {
-        return self.low.cmp(&other.low);
-    }
-}
-
-impl PartialOrd for Range {
-    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
-        Some(self.cmp(other))
-    }
 }
 
 #[allow(dead_code)]
@@ -126,4 +108,22 @@ pub fn task2() {
     }
 
     println!("{valid_ids}")
+}
+
+#[derive(Debug, Eq, PartialEq, Copy, Clone)]
+struct Range {
+    low: u64,
+    high: u64,
+}
+
+impl Ord for Range {
+    fn cmp(&self, other: &Self) -> Ordering {
+        return self.low.cmp(&other.low);
+    }
+}
+
+impl PartialOrd for Range {
+    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+        Some(self.cmp(other))
+    }
 }

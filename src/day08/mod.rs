@@ -7,10 +7,10 @@ use std::{
     io::{self, BufRead},
 };
 
-use crate::day8::structs::{DisjoinSets, Edge, Point};
+use crate::day08::structs::{DisjoinSets, Edge, Point};
 
-const PATH: &str = "inputs/day8/input.txt";
-const CONNECTIONS: u64 = 1000;
+const PATH: &str = "inputs/day08/input.txt";
+const CONNECTIONS: u64 = 10;
 
 #[allow(dead_code)]
 pub fn task1() {

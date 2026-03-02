@@ -1,6 +1,6 @@
 use std::{fs::File, io::Read};
 
-const PATH: &str = "inputs/day2/input.txt";
+const PATH: &str = "inputs/day02/input.txt";
 
 #[allow(dead_code)]
 pub fn task1() {

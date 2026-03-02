@@ -3,7 +3,7 @@ use std::{
     io::{self, BufRead},
 };
 
-const PATH: &str = "inputs/day6/input.txt";
+const PATH: &str = "inputs/day06/input.txt";
 
 #[allow(dead_code)]
 pub fn task1() {
