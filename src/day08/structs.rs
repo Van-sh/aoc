@@ -47,16 +47,16 @@ impl DisjoinSets {
         for i in 0..n {
             instance.parent.push(i);
         }
-        return instance;
+        instance
     }
 
     pub fn find_parent(&mut self, i: usize) -> usize {
-        return if self.parent[i] == i {
+        if self.parent[i] == i {
             i
         } else {
             self.parent[i] = self.find_parent(self.parent[i]);
             self.parent[i]
-        };
+        }
     }
     pub fn unite(&mut self, x: usize, y: usize) -> bool {
         let x_parent = self.find_parent(x);
@@ -73,6 +73,6 @@ impl DisjoinSets {
             }
             return true;
         }
-        return false;
+        false
     }
 }

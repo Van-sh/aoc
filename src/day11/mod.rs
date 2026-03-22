@@ -8,7 +8,6 @@ use std::{
 
 const PATH: &str = "inputs/day11/input.txt";
 
-#[allow(dead_code)]
 pub fn task1() {
     let file = File::open(PATH).unwrap();
     let lines = io::BufReader::new(file).lines();
@@ -32,7 +31,6 @@ pub fn task1() {
     println!("{:#?}", res);
 }
 
-#[allow(dead_code)]
 pub fn task2() {
     let file = File::open(PATH).unwrap();
     let lines = io::BufReader::new(file).lines();
@@ -60,8 +58,8 @@ pub fn task2() {
 fn dfs_task1(adjacency_list: &HashMap<String, Vec<String>>) -> u32 {
     let starting_node = "you";
     let mut visited = HashMap::new();
-    for (node, _) in adjacency_list {
-        visited.insert((*node).clone(), false);
+    for node in adjacency_list.keys() {
+        visited.insert(node.clone(), false);
     }
 
     let mut res = 0;
@@ -73,7 +71,7 @@ fn dfs_task1(adjacency_list: &HashMap<String, Vec<String>>) -> u32 {
         &mut vec![],
     );
 
-    return res;
+    res
 }
 
 fn dfs_task1_recursive(
@@ -108,7 +106,7 @@ fn solve_task2(adjacency_list: Arc<HashMap<String, Vec<String>>>) -> u64 {
     let tasks_fft_dac = [("svr", "fft"), ("fft", "dac"), ("dac", "out")];
     let tasks_dac_fft = [("svr", "dac"), ("dac", "fft"), ("fft", "out")];
     let tasks = [tasks_fft_dac, tasks_dac_fft];
-    return tasks
+    tasks
         .map(|task| {
             let handlers = task.map(|task| {
                 let adj = adjacency_list.clone();
@@ -120,12 +118,12 @@ fn solve_task2(adjacency_list: Arc<HashMap<String, Vec<String>>>) -> u64 {
                     .unwrap()
             });
 
-            return handlers
+            handlers
                 .into_iter()
-                .fold(1, |acc, handle| acc * handle.join().unwrap());
+                .fold(1, |acc, handle| acc * handle.join().unwrap())
         })
         .into_iter()
-        .sum();
+        .sum()
 }
 
 fn dfs_task2_recursive(
@@ -143,5 +141,5 @@ fn dfs_task2_recursive(
         paths_to_dest.insert(next_node.clone(), paths_from_node);
         paths += paths_from_node
     }
-    return paths;
+    paths
 }

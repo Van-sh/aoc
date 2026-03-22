@@ -5,7 +5,6 @@ use std::{
 
 const PATH: &str = "inputs/day01/input.txt";
 
-#[allow(dead_code)]
 pub fn task1() {
     let mut dial_pos = 50;
     let mut zero_count = 0;
@@ -33,7 +32,6 @@ pub fn task1() {
     println!("{zero_count}");
 }
 
-#[allow(dead_code)]
 pub fn task2() {
     let mut dial_pos = 50;
     let mut zero_count = 0;

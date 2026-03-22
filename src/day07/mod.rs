@@ -6,7 +6,6 @@ use std::{
 
 const PATH: &str = "inputs/day07/input.txt";
 
-#[allow(dead_code)]
 pub fn task1() {
     let mut encountered_splitters = 0;
     let mut indexes = HashSet::new();
@@ -40,7 +39,6 @@ pub fn task1() {
     println!("{encountered_splitters}")
 }
 
-#[allow(dead_code)]
 pub fn task2() {
     let file = File::open(PATH).unwrap();
     let mut lines = io::BufReader::new(file).lines();

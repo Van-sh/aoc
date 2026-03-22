@@ -7,7 +7,6 @@ use std::{
 
 const PATH: &str = "inputs/day05/input.txt";
 
-#[allow(dead_code)]
 pub fn task1() {
     let mut valid_ids = 0;
 
@@ -17,7 +16,7 @@ pub fn task1() {
     let mut ranges = Vec::<(u64, u64)>::new();
 
     for line in lines.by_ref().map_while(Result::ok) {
-        if line.len() == 0 {
+        if line.is_empty() {
             break;
         }
 
@@ -43,7 +42,6 @@ pub fn task1() {
     println!("{valid_ids}");
 }
 
-#[allow(dead_code)]
 pub fn task2() {
     let mut valid_ids = 0u64;
 
@@ -52,7 +50,7 @@ pub fn task2() {
 
     let mut heap = BinaryHeap::new();
     for line in lines.map_while(Result::ok) {
-        if line.len() == 0 {
+        if line.is_empty() {
             break;
         }
 
@@ -118,7 +116,7 @@ struct Range {
 
 impl Ord for Range {
     fn cmp(&self, other: &Self) -> Ordering {
-        return self.low.cmp(&other.low);
+        self.low.cmp(&other.low)
     }
 }
 

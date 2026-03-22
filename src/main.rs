@@ -1,3 +1,5 @@
+use std::time::Instant;
+
 pub mod day01;
 pub mod day02;
 pub mod day03;
@@ -11,5 +13,7 @@ pub mod day10;
 pub mod day11;
 
 fn main() {
+    let timer = Instant::now();
     day11::task2();
+    println!("Done in {:?}", timer.elapsed());
 }

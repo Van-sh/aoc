@@ -5,7 +5,6 @@ use std::{
 
 const PATH: &str = "inputs/day09/input.txt";
 
-#[allow(dead_code)]
 pub fn task1() {
     let mut max_area = 0;
 
@@ -42,7 +41,6 @@ pub fn task1() {
     println!("{max_area}");
 }
 
-#[allow(dead_code)]
 pub fn task2() {
     let mut max_area = 0;
 
@@ -94,8 +92,7 @@ pub fn task2() {
 
             let mut edge_is_inside = false;
 
-            for k in 0..horizontal_edges.len() {
-                let edge = horizontal_edges[k];
+            for edge in &horizontal_edges {
                 let (edge_x1, edge_y) = coords[edge.0];
                 let edge_x2 = coords[edge.1].0;
 
@@ -131,8 +128,7 @@ pub fn task2() {
                 continue;
             }
 
-            for k in 0..vertical_edges.len() {
-                let edge = vertical_edges[k];
+            for edge in &vertical_edges {
                 let (edge_x, edge_y1) = coords[edge.0];
                 let edge_y2 = coords[edge.1].1;
 

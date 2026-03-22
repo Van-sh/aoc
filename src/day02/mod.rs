@@ -2,7 +2,6 @@ use std::{fs::File, io::Read};
 
 const PATH: &str = "inputs/day02/input.txt";
 
-#[allow(dead_code)]
 pub fn task1() {
     let mut invalid_id_sum = 0;
     let mut text = String::new();
@@ -38,7 +37,6 @@ pub fn task1() {
     println!("{invalid_id_sum}")
 }
 
-#[allow(dead_code)]
 pub fn task2() {
     let mut invalid_id_sum = 0;
     let mut text = String::new();

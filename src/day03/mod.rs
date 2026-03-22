@@ -5,7 +5,6 @@ use std::{
 
 const PATH: &str = "inputs/day03/input.txt";
 
-#[allow(dead_code)]
 pub fn task1() {
     let mut total_joltage = 0;
 
@@ -27,7 +26,6 @@ pub fn task1() {
     println!("{total_joltage}")
 }
 
-#[allow(dead_code)]
 pub fn task2() {
     let mut total_joltage: u64 = 0;
 
@@ -60,8 +58,8 @@ fn find_max_in_arr_slice(arr: &[char]) -> (u64, usize) {
     let mut max_num = 0;
     let mut max_num_index = 0;
 
-    for i in 0..(arr.len()) {
-        let num = arr[i].to_digit(10).unwrap() as u64;
+    for (i, ch) in arr.iter().enumerate() {
+        let num = ch.to_digit(10).unwrap() as u64;
 
         if num > max_num {
             max_num_index = i;
@@ -69,5 +67,5 @@ fn find_max_in_arr_slice(arr: &[char]) -> (u64, usize) {
         }
     }
 
-    return (max_num, max_num_index);
+    (max_num, max_num_index)
 }

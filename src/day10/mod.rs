@@ -37,10 +37,9 @@ fn find_all_combinations<T: Clone + std::fmt::Debug>(arr: &Vec<T>) -> Vec<Vec<Ve
         result.push(intermediate_result);
     }
 
-    return result;
+    result
 }
 
-#[allow(dead_code)]
 pub fn task1() {
     let mut total_button_presses = 0;
 
@@ -63,11 +62,10 @@ pub fn task1() {
             .iter()
             .map(|schematic| {
                 let schematic = &schematic[1..(schematic.len() - 1)];
-                let schematic = schematic
+                schematic
                     .split(",")
                     .map(|num| num.parse::<usize>().unwrap())
-                    .collect::<Vec<_>>();
-                return schematic;
+                    .collect::<Vec<_>>()
             })
             .collect::<Vec<_>>();
 
@@ -103,16 +101,14 @@ pub fn task1() {
     println!("{total_button_presses}");
 }
 
-fn find_all_presses(
-    wiring_schematics: &Vec<Vec<usize>>,
-    joltage_requirements: &Vec<usize>,
-) -> usize {
+fn find_all_presses(wiring_schematics: &[Vec<usize>], joltage_requirements: &[usize]) -> usize {
     let matrix = Matrix::new(wiring_schematics, joltage_requirements);
     let max = joltage_requirements.iter().max().unwrap() + 1;
     let mut min = usize::MAX;
     let mut values = vec![0; matrix.independents.len()];
     dfs(&matrix, 0, &mut values, &mut min, max);
-    return min;
+
+    min
 }
 
 struct Matrix {
@@ -124,7 +120,7 @@ struct Matrix {
 }
 
 impl Matrix {
-    fn new(wiring_schematics: &Vec<Vec<usize>>, joltage_requirements: &Vec<usize>) -> Self {
+    fn new(wiring_schematics: &[Vec<usize>], joltage_requirements: &[usize]) -> Self {
         let rows = joltage_requirements.len();
         let cols = wiring_schematics.len();
         let mut data = vec![vec![0.0; cols + 1]; rows];
@@ -148,7 +144,8 @@ impl Matrix {
             independents: Vec::new(),
         };
         matrix.gaussian_elimination();
-        return matrix;
+
+        matrix
     }
 
     fn gaussian_elimination(&mut self) {
@@ -189,8 +186,8 @@ impl Matrix {
             pivot += 1;
             col += 1;
         }
-        for c in 0..self.cols {
-            if !pivot_cols[c] {
+        for (c, col) in pivot_cols.iter().enumerate().take(self.cols) {
+            if !col {
                 self.independents.push(c);
             };
         }
@@ -212,7 +209,7 @@ impl Matrix {
             }
             total += rounded as usize;
         }
-        return Some(total);
+        Some(total)
     }
 }
 
@@ -255,11 +252,10 @@ pub fn task2() {
             .iter()
             .map(|schematic| {
                 let schematic = &schematic[1..(schematic.len() - 1)];
-                let schematic = schematic
+                schematic
                     .split(",")
                     .map(|num| num.parse::<usize>().unwrap())
-                    .collect::<Vec<_>>();
-                return schematic;
+                    .collect::<Vec<_>>()
             })
             .collect::<Vec<_>>();
 

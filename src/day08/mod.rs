@@ -12,7 +12,6 @@ use crate::day08::structs::{DisjoinSets, Edge, Point};
 const PATH: &str = "inputs/day08/input.txt";
 const CONNECTIONS: u64 = 10;
 
-#[allow(dead_code)]
 pub fn task1() {
     let file = File::open(PATH).unwrap();
     let lines = io::BufReader::new(file).lines();
@@ -38,7 +37,7 @@ pub fn task1() {
             let dist = points[i].dist(&points[j]);
             distances.push(Reverse(Edge {
                 points: (i, j),
-                dist: dist,
+                dist,
             }));
         }
     }
@@ -70,7 +69,6 @@ pub fn task1() {
     println!("{result}")
 }
 
-#[allow(dead_code)]
 pub fn task2() {
     let file = File::open(PATH).unwrap();
     let lines = io::BufReader::new(file).lines();
@@ -96,7 +94,7 @@ pub fn task2() {
             let dist = points[i].dist(&points[j]);
             distances.push(Reverse(Edge {
                 points: (i, j),
-                dist: dist,
+                dist,
             }));
         }
     }

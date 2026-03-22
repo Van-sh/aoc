@@ -5,7 +5,6 @@ use std::{
 
 const PATH: &str = "inputs/day06/input.txt";
 
-#[allow(dead_code)]
 pub fn task1() {
     let mut result = 0u64;
 
@@ -16,28 +15,28 @@ pub fn task1() {
         .collect::<Vec<_>>();
 
     let mut split_lines = Vec::new();
-    for i in 0..lines.len() {
-        let line = lines[i].trim().split_whitespace().collect::<Vec<_>>();
+    for line in &lines {
+        let line = line.split_whitespace().collect::<Vec<_>>();
         split_lines.push(line);
     }
 
     let operations = split_lines.pop().unwrap();
 
-    for i in 0..operations.len() {
-        println!("{}", operations[i]);
-        let mut accum = match operations[i] {
+    for (i, &operation) in operations.iter().enumerate() {
+        println!("{}", operation);
+        let mut accum = match operation {
             "*" => 1u64,
             "+" => 0u64,
             _ => panic!("Invalid input"),
         };
-        for j in 0..split_lines.len() {
-            println!("{}", split_lines[j][i]);
-            match operations[i] {
+        for split_line in &split_lines {
+            println!("{}", split_line[i]);
+            match operation {
                 "*" => {
-                    accum *= split_lines[j][i].parse::<u64>().unwrap();
+                    accum *= split_line[i].parse::<u64>().unwrap();
                 }
                 "+" => {
-                    accum += split_lines[j][i].parse::<u64>().unwrap();
+                    accum += split_line[i].parse::<u64>().unwrap();
                 }
                 _ => panic!("Invalid input"),
             }
@@ -49,7 +48,6 @@ pub fn task1() {
     println!("{result}");
 }
 
-#[allow(dead_code)]
 pub fn task2() {
     let mut result = 0u64;
 
@@ -78,13 +76,10 @@ pub fn task2() {
             let mut is_num = false;
 
             let mut num = 0u64;
-            for row in 0..lines.len() {
-                match lines[row][col].to_digit(10) {
-                    Some(digit) => {
-                        is_num = true;
-                        num = num * 10 + digit as u64;
-                    }
-                    None => {}
+            for line in &lines {
+                if let Some(digit) = line[col].to_digit(10) {
+                    is_num = true;
+                    num = num * 10 + digit as u64;
                 }
             }
 

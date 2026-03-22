@@ -5,7 +5,6 @@ use std::{
 
 const PATH: &str = "inputs/day04/input.txt";
 
-#[allow(dead_code)]
 pub fn task1() {
     let mut accessible_rolls = 0;
 
@@ -75,7 +74,6 @@ pub fn task1() {
     println!("{accessible_rolls}");
 }
 
-#[allow(dead_code)]
 pub fn task2() {
     let mut accessible_rolls = 0;
 
@@ -150,7 +148,7 @@ pub fn task2() {
 
         accessible_rolls += accessible_rolls_coords.len();
 
-        if accessible_rolls_coords.len() == 0 {
+        if accessible_rolls_coords.is_empty() {
             break;
         }
 
