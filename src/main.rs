@@ -11,9 +11,10 @@ pub mod day08;
 pub mod day09;
 pub mod day10;
 pub mod day11;
+pub mod day12
 
 fn main() {
     let timer = Instant::now();
-    day11::task2();
+    day12::task1();
     println!("Done in {:?}", timer.elapsed());
 }
