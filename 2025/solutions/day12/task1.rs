@@ -1,6 +1,6 @@
 use std::{collections::HashSet, fs::File, io::Read, time::Instant};
 
-const PATH: &str = "inputs/day12/example.txt";
+const PATH: &str = "inputs/day12/input.txt";
 
 fn task1() {
     let mut lines = String::new();

@@ -5,7 +5,7 @@ use std::{
     time::Instant,
 };
 
-const PATH: &str = "inputs/day11/example.txt";
+const PATH: &str = "inputs/day11/input.txt";
 
 fn task1() {
     let file = File::open(PATH).unwrap();
