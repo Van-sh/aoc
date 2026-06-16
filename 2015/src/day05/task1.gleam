@@ -15,6 +15,7 @@ fn task1() -> Nil {
   let result =
     simplifile.read(path)
     |> result.lazy_unwrap(fn() { panic as { "Failed to read " <> path } })
+    |> string.trim
     |> string.split("\n")
     |> list.filter(is_string_nice)
     |> list.length
