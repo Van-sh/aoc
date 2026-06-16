@@ -1,6 +1,7 @@
 import gleam/int
 import gleam/io
 import gleam/list
+import gleam/result
 import gleam/string
 import gleam/time/duration
 import gleam/time/timestamp
@@ -10,12 +11,10 @@ const path = "inputs/day01/input.txt"
 
 fn task2() -> Nil {
   let result =
-    case simplifile.read(path) {
-      Ok(content) -> content
-      Error(_) -> panic as "file was not found"
-    }
+    simplifile.read(path)
+    |> result.lazy_unwrap(fn() { panic as { "Failed to read " <> path } })
     |> string.to_graphemes
-    |> list.map(fn(char: String) {
+    |> list.map(fn(char) {
       case char {
         "(" -> 1
         ")" -> -1
@@ -34,6 +33,7 @@ fn find_index_for_first_character_to_reach_basement(
   index: Int,
 ) -> Int {
   let assert [curr_direction, ..directions] = directions
+    as "we should never have an empty list as long as we enter basement at any point in time"
 
   let floor = floor + curr_direction
   case floor < 0 {

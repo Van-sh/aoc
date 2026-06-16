@@ -1,27 +1,41 @@
 import gleam/int
 import gleam/io
 import gleam/list
+import gleam/order
 import gleam/result
 import gleam/string
 import gleam/time/duration
 import gleam/time/timestamp
 import simplifile
 
-const path = "inputs/day01/input.txt"
+const path = "inputs/day02/input.txt"
 
 fn task1() -> Nil {
   let result =
     simplifile.read(path)
     |> result.lazy_unwrap(fn() { panic as { "Failed to read " <> path } })
-    |> string.to_graphemes
-    |> list.map(fn(char) {
-      case char {
-        "(" -> 1
-        ")" -> -1
-        _ -> panic as "unexpected character"
+    |> string.trim
+    |> string.split("\n")
+    |> list.map(fn(line) {
+      string.split(line, "x")
+      |> list.map(fn(dimension) {
+        int.parse(dimension)
+        |> result.lazy_unwrap(fn() {
+          panic as { "Couldn't convert " <> dimension <> " to int" }
+        })
+      })
+      |> fn(dimensions) {
+        let assert [l, w, h] = dimensions
+          as "dimensions should be a list of 3 elements"
+
+        let min_side =
+          list.max(dimensions, order.reverse(int.compare))
+          |> result.lazy_unwrap(fn() { panic })
+
+        2 * l * w + 2 * w * h + 2 * l * h + min_side
       }
     })
-    |> list.fold(0, fn(acc, direction) { acc + direction })
+    |> list.fold(0, int.add)
     |> int.to_string
 
   io.println(result)
