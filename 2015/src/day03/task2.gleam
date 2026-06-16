@@ -10,7 +10,7 @@ import simplifile
 
 const path = "inputs/day03/input.txt"
 
-fn task1() -> Nil {
+fn task2() -> Nil {
   let starting_position = #(0, 0)
 
   let result =
@@ -85,7 +85,7 @@ fn get_visited_houses(
 pub fn main() -> Nil {
   let start = timestamp.system_time()
 
-  task1()
+  task2()
 
   let #(seconds, nanoseconds) =
     timestamp.difference(start, timestamp.system_time())
