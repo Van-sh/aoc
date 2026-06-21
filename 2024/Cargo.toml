@@ -1,0 +1,11 @@
+bin = [
+   { name = "day1-1", path = "solutions/day01/task1.rs" },
+   { name = "day1-2", path = "solutions/day01/task2.rs" },
+]
+
+[package]
+name = "aoc2024"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
