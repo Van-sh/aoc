@@ -7,7 +7,7 @@ use std::{
 
 const PATH: &str = "inputs/day07/input.txt";
 
- fn task1() {
+fn task1() {
     let mut encountered_splitters = 0;
     let mut indexes = HashSet::new();
 

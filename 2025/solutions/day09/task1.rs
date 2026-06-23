@@ -6,7 +6,7 @@ use std::{
 
 const PATH: &str = "inputs/day09/input.txt";
 
- fn task1() {
+fn task1() {
     let mut max_area = 0;
 
     let file = File::open(PATH).unwrap();

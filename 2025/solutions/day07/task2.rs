@@ -6,7 +6,7 @@ use std::{
 
 const PATH: &str = "inputs/day07/input.txt";
 
- fn task2() {
+fn task2() {
     let file = File::open(PATH).unwrap();
     let mut lines = io::BufReader::new(file).lines();
 
