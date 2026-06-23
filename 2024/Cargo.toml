@@ -3,6 +3,8 @@ bin = [
    { name = "day1-2", path = "solutions/day01/task2.rs" },
    { name = "day2-1", path = "solutions/day02/task1.rs" },
    { name = "day2-2", path = "solutions/day02/task2.rs" },
+   { name = "day3-1", path = "solutions/day03/task1.rs" },
+   { name = "day3-2", path = "solutions/day03/task2.rs" },
 ]
 
 [package]
@@ -11,3 +13,4 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+regex = "1.12.4"
