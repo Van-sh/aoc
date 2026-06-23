@@ -7,7 +7,7 @@ use std::{
 
 const PATH: &str = "inputs/day01/input.txt";
 
-fn task1() {
+fn task2() {
     let mut result = 0;
 
     let file = File::open(PATH).expect("Unable to read file");
@@ -41,6 +41,6 @@ fn task1() {
 
 fn main() {
     let timer = Instant::now();
-    task1();
+    task2();
     println!("Done in {:?}", timer.elapsed());
 }
