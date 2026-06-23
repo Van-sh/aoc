@@ -2,7 +2,7 @@ use std::{fs::File, io::Read, time::Instant};
 
 const PATH: &str = "inputs/day12/input.txt";
 
-fn task1() {
+fn task() {
     let mut result = 0;
 
     let mut lines = String::new();
@@ -71,6 +71,6 @@ fn task1() {
 
 fn main() {
     let timer = Instant::now();
-    task1();
+    task();
     println!("Done in {:?}", timer.elapsed());
 }

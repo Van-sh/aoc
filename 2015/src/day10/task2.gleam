@@ -8,7 +8,7 @@ import simplifile
 
 const path = "inputs/day10/input.txt"
 
-fn task1() -> Nil {
+fn task2() -> Nil {
   let result =
     simplifile.read(path)
     |> result.lazy_unwrap(fn() { panic as { "Failed to read " <> path } })
@@ -54,7 +54,7 @@ fn look_and_say(
 pub fn main() -> Nil {
   let start = timestamp.system_time()
 
-  task1()
+  task2()
 
   let #(seconds, nanoseconds) =
     timestamp.difference(start, timestamp.system_time())

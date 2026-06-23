@@ -9,7 +9,7 @@ import simplifile
 
 const path = "inputs/day08/input.txt"
 
-fn task1() -> Nil {
+fn task2() -> Nil {
   let result =
     simplifile.read(path)
     |> result.lazy_unwrap(fn() { panic as { "Failed to read " <> path } })
@@ -38,7 +38,7 @@ fn count_characters(acc: #(Int, Int), line: List(String)) -> #(Int, Int) {
 pub fn main() -> Nil {
   let start = timestamp.system_time()
 
-  task1()
+  task2()
 
   let #(seconds, nanoseconds) =
     timestamp.difference(start, timestamp.system_time())

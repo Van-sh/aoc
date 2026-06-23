@@ -11,7 +11,7 @@ const path = "inputs/day11/input.txt"
 
 const blacklisted_chars = ["i", "o", "l"]
 
-fn task1() -> Nil {
+fn task2() -> Nil {
   let result =
     simplifile.read(path)
     |> result.lazy_unwrap(fn() { panic as { "Failed to read " <> path } })
@@ -130,7 +130,7 @@ fn decode_base_26(
 pub fn main() -> Nil {
   let start = timestamp.system_time()
 
-  task1()
+  task2()
 
   let #(seconds, nanoseconds) =
     timestamp.difference(start, timestamp.system_time())
