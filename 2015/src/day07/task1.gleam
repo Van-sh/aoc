@@ -42,7 +42,6 @@ fn memoized_find_value_of(
   wire: String,
   memo: dict.Dict(String, Int),
 ) -> #(Int, dict.Dict(String, Int)) {
-  // echo ["Getting value for", wire]
   let #(value, memo) = case dict.get(memo, wire) {
     Ok(value) -> #(value, memo)
     Error(_) -> {
