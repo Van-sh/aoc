@@ -2,7 +2,7 @@ import gleam/dict
 import gleam/int
 import gleam/io
 import gleam/list
-import gleam/option
+import gleam/option.{Some, None}
 import gleam/result
 import gleam/string
 import gleam/time/duration
@@ -61,8 +61,8 @@ fn task2() -> Nil {
       |> list.fold(points, fn(points, leader) {
         dict.upsert(points, leader.0, fn(value) {
           case value {
-            option.Some(i) -> i + 1
-            option.None -> 1
+            Some(i) -> i + 1
+            None -> 1
           }
         })
       })

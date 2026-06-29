@@ -2,7 +2,7 @@ import gleam/int
 import gleam/io
 import gleam/list
 import gleam/result
-import gleam/set
+import gleam/set.{type Set}
 import gleam/string
 import gleam/time/duration
 import gleam/time/timestamp
@@ -34,7 +34,7 @@ fn task1() -> Nil {
 
 fn get_visited_houses(
   directions: List(#(Int, Int)),
-  visited: set.Set(#(Int, Int)),
+  visited: Set(#(Int, Int)),
   position: #(Int, Int),
 ) -> Int {
   case directions {

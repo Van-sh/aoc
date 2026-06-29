@@ -1,4 +1,4 @@
-import gleam/dict
+import gleam/dict.{type Dict}
 import gleam/int
 import gleam/io
 import gleam/list
@@ -33,7 +33,7 @@ fn task2() -> Nil {
 }
 
 fn find_value_of(
-  instructions: dict.Dict(String, List(String)),
+  instructions: Dict(String, List(String)),
   wire: String,
 ) -> Int {
   let #(result, _) = memoized_find_value_of(instructions, wire, dict.new())
@@ -42,10 +42,10 @@ fn find_value_of(
 }
 
 fn memoized_find_value_of(
-  instructions: dict.Dict(String, List(String)),
+  instructions: Dict(String, List(String)),
   wire: String,
-  memo: dict.Dict(String, Int),
-) -> #(Int, dict.Dict(String, Int)) {
+  memo: Dict(String, Int),
+) -> #(Int, Dict(String, Int)) {
   let #(value, memo) = case dict.get(memo, wire) {
     Ok(value) -> #(value, memo)
     Error(_) -> {

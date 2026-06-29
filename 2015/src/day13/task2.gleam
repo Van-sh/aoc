@@ -1,4 +1,4 @@
-import gleam/dict
+import gleam/dict.{type Dict}
 import gleam/int
 import gleam/io
 import gleam/list
@@ -9,7 +9,7 @@ import gleam/time/duration
 import gleam/time/timestamp
 import simplifile
 
-const path = "inputs/day13/input.txt"
+const path: String = "inputs/day13/input.txt"
 
 fn task2() -> Nil {
   let input =
@@ -99,8 +99,8 @@ fn task2() -> Nil {
 
 fn get_happiness_change_for_a_pair(
   pair: #(String, String),
-  happiness_association: dict.Dict(#(String, String), Int),
-) {
+  happiness_association: Dict(#(String, String), Int),
+) -> Int {
   dict.get(happiness_association, pair)
   |> result.lazy_unwrap(fn() {
     panic as {

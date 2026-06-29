@@ -1,8 +1,8 @@
-import gleam/dict
+import gleam/dict.{type Dict}
 import gleam/int
 import gleam/io
 import gleam/list
-import gleam/option
+import gleam/option.{Some, None}
 import gleam/result
 import gleam/string
 import gleam/time/duration
@@ -61,17 +61,17 @@ fn extract_coord_from_string(input: String) -> #(Int, Int) {
 }
 
 fn set_grid_values(
-  grid: dict.Dict(#(Int, Int), Int),
+  grid: Dict(#(Int, Int), Int),
   value: Int,
   start: #(Int, Int),
   end: #(Int, Int),
   curr: #(Int, Int),
-) -> dict.Dict(#(Int, Int), Int) {
+) -> Dict(#(Int, Int), Int) {
   let grid =
     dict.upsert(grid, curr, fn(light_level) {
       case light_level {
-        option.Some(light_level) -> light_level + value
-        option.None -> value
+        Some(light_level) -> light_level + value
+        None -> value
       }
       |> int.max(0)
     })

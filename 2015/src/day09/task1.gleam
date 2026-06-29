@@ -1,4 +1,4 @@
-import gleam/dict
+import gleam/dict.{type Dict}
 import gleam/int
 import gleam/io
 import gleam/list
@@ -56,10 +56,10 @@ fn task1() -> Nil {
 
 fn find_smallest_route(
   locations: List(String),
-  distances: dict.Dict(#(String, String), Int),
+  distances: Dict(#(String, String), Int),
   distance: Int,
   node: String,
-  visited: dict.Dict(String, Bool),
+  visited: Dict(String, Bool),
 ) -> Int {
   let visited = dict.insert(visited, node, True)
   let all_visited =

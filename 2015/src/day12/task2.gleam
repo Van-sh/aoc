@@ -1,5 +1,5 @@
 import gleam/dict
-import gleam/dynamic
+import gleam/dynamic.{type Dynamic}
 import gleam/dynamic/decode
 import gleam/int
 import gleam/io
@@ -27,7 +27,7 @@ fn task2() -> Nil {
   io.println(result)
 }
 
-fn sum_numbers(value: dynamic.Dynamic) -> Result(Int, Nil) {
+fn sum_numbers(value: Dynamic) -> Result(Int, Nil) {
   case dynamic.classify(value) {
     "Dict" ->
       decode.run(value, decode.dict(decode.dynamic, decode.dynamic))
