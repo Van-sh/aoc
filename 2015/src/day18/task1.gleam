@@ -1,0 +1,90 @@
+import gleam/dict.{type Dict}
+import gleam/int
+import gleam/io
+import gleam/list
+import gleam/result
+import gleam/string
+import gleam/time/duration
+import gleam/time/timestamp
+import simplifile
+
+const path: String = "inputs/day18/input.txt"
+
+const steps: Int = 100
+
+fn task1() -> Nil {
+  let result =
+    simplifile.read(path)
+    |> result.lazy_unwrap(fn() { panic as { "Failed to read " <> path } })
+    |> string.trim
+    |> string.split("\n")
+    |> list.map(string.to_graphemes)
+    |> list.index_fold(dict.new(), fn(grid, line, row) {
+      list.index_fold(line, grid, fn(grid, cell, col) {
+        dict.insert(grid, #(row, col), cell == "#")
+      })
+    })
+    |> animate_frames(steps)
+    |> dict.fold(0, fn(acc, _, is_on) {
+      case is_on {
+        True -> acc + 1
+        False -> acc
+      }
+    })
+    |> int.to_string
+
+  io.println(result)
+}
+
+fn animate_frames(
+  grid: Dict(#(Int, Int), Bool),
+  iterations: Int,
+) -> Dict(#(Int, Int), Bool) {
+  case iterations {
+    0 -> grid
+    _ -> {
+      dict.map_values(grid, fn(pos, is_on) {
+        let on_neighbours =
+          int.range(pos.0 - 1, pos.0 + 2, 0, fn(on_neighbours, row) {
+            int.range(
+              pos.1 - 1,
+              pos.1 + 2,
+              on_neighbours,
+              fn(on_neighbours, col) {
+                case
+                  dict.get(grid, #(row, col)) |> result.unwrap(False)
+                  && { row != pos.0 || col != pos.1 }
+                {
+                  True -> on_neighbours + 1
+                  False -> on_neighbours
+                }
+              },
+            )
+          })
+
+        case is_on, on_neighbours {
+          True, 2 | _, 3 -> True
+          _, _ -> False
+        }
+      })
+      |> animate_frames(iterations - 1)
+    }
+  }
+}
+
+pub fn main() -> Nil {
+  let start = timestamp.system_time()
+
+  task1()
+
+  let #(seconds, nanoseconds) =
+    timestamp.difference(start, timestamp.system_time())
+    |> duration.to_seconds_and_nanoseconds()
+  io.println(
+    "Done in "
+    <> int.to_string(seconds)
+    <> "s and "
+    <> int.to_string(nanoseconds)
+    <> "ns",
+  )
+}
