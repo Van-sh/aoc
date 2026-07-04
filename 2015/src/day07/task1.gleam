@@ -8,7 +8,7 @@ import gleam/time/duration
 import gleam/time/timestamp
 import simplifile
 
-const path = "inputs/day07/input.txt"
+const path: String = "inputs/day07/input.txt"
 
 fn task1() -> Nil {
   let result =

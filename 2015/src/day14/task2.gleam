@@ -9,9 +9,9 @@ import gleam/time/duration
 import gleam/time/timestamp
 import simplifile
 
-const path = "inputs/day14/input.txt"
+const path: String = "inputs/day14/input.txt"
 
-const total_time = 2503
+const total_time: Int = 2503
 
 type Reindeer {
   Reindeer(name: String, speed: Int, runtime: Int, rest_time: Int)

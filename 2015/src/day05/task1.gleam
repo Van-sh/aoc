@@ -7,9 +7,9 @@ import gleam/time/duration
 import gleam/time/timestamp
 import simplifile
 
-const path = "inputs/day05/input.txt"
+const path: String = "inputs/day05/input.txt"
 
-const blacklisted_strings = ["ab", "cd", "pq", "xy"]
+const blacklisted_strings: List(String) = ["ab", "cd", "pq", "xy"]
 
 fn task1() -> Nil {
   let result =

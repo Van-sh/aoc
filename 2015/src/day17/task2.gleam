@@ -10,7 +10,7 @@ import simplifile
 
 const path: String = "inputs/day17/input.txt"
 
-const eggnog = 150
+const eggnog: Int = 150
 
 fn task2() -> Nil {
   let result =
