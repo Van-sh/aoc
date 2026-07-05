@@ -10,7 +10,6 @@ fn task() {
         .unwrap()
         .read_to_string(&mut lines)
         .unwrap();
-    let lines = lines.replace("\r\n", "\n");
     let mut lines = lines.split("\n\n").collect::<Vec<_>>();
     let trees_input = lines.pop().expect("Empty input");
 
