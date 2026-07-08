@@ -2,7 +2,7 @@ import gleam/dict
 import gleam/int
 import gleam/io
 import gleam/list
-import gleam/option.{Some, None}
+import gleam/option.{None, Some}
 import gleam/result
 import gleam/string
 import gleam/time/duration
@@ -42,7 +42,9 @@ fn task2() -> Nil {
     })
 
   let result =
-    int.range(1, total_time + 1, dict.new(), fn(points, t) {
+    {
+      use points, t <- int.range(1, total_time + 1, dict.new())
+
       let distances =
         list.map(reindeers, fn(reindeer) {
           let time_period = reindeer.runtime + reindeer.rest_time
@@ -66,7 +68,7 @@ fn task2() -> Nil {
           }
         })
       })
-    })
+    }
     |> dict.to_list
     |> list.max(fn(first, second) { int.compare(first.1, second.1) })
     |> result.lazy_unwrap(fn() { panic })

@@ -63,23 +63,23 @@ fn animate_frames(
     0 -> grid
     _ -> {
       dict.map_values(grid, fn(pos, is_on) {
-        let on_neighbours =
-          int.range(pos.0 - 1, pos.0 + 2, 0, fn(on_neighbours, row) {
-            int.range(
-              pos.1 - 1,
-              pos.1 + 2,
-              on_neighbours,
-              fn(on_neighbours, col) {
-                case
-                  dict.get(grid, #(row, col)) |> result.unwrap(False)
-                  && { row != pos.0 || col != pos.1 }
-                {
-                  True -> on_neighbours + 1
-                  False -> on_neighbours
-                }
-              },
-            )
-          })
+        let on_neighbours = {
+          use on_neighbours, row <- int.range(pos.0 - 1, pos.0 + 2, 0)
+
+          use on_neighbours, col <- int.range(
+            pos.1 - 1,
+            pos.1 + 2,
+            on_neighbours,
+          )
+
+          case
+            dict.get(grid, #(row, col)) |> result.unwrap(False)
+            && { row != pos.0 || col != pos.1 }
+          {
+            True -> on_neighbours + 1
+            False -> on_neighbours
+          }
+        }
 
         case is_on, on_neighbours {
           True, 2 | _, 3 -> True

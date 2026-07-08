@@ -89,7 +89,7 @@ fn search_space(
   ingredient_count: Int,
 ) -> List(List(Ingredient)) {
   case ingredients {
-    [ingredient, ..ingredients] if ingredients == [] -> {
+    [ingredient] -> {
       let count = max_ingredients - ingredient_count
       [
         [
@@ -103,25 +103,30 @@ fn search_space(
         ],
       ]
     }
-    [ingredient, ..ingredients] ->
-      int.range(0, max_ingredients - ingredient_count + 1, [], fn(space, count) {
-        list.append(
-          space,
-          search_space(ingredients, ingredient_count + count)
-            |> list.map(fn(state) {
-              [
-                Ingredient(
-                  ingredient.capacity * count,
-                  ingredient.durability * count,
-                  ingredient.flavor * count,
-                  ingredient.texture * count,
-                  ingredient.calories * count,
-                ),
-                ..state
-              ]
-            }),
-        )
-      })
+    [ingredient, ..ingredients] -> {
+      use space, count <- int.range(
+        0,
+        max_ingredients - ingredient_count + 1,
+        [],
+      )
+
+      list.append(
+        space,
+        search_space(ingredients, ingredient_count + count)
+          |> list.map(fn(state) {
+            [
+              Ingredient(
+                ingredient.capacity * count,
+                ingredient.durability * count,
+                ingredient.flavor * count,
+                ingredient.texture * count,
+                ingredient.calories * count,
+              ),
+              ..state
+            ]
+          }),
+      )
+    }
     _ -> panic
   }
 }

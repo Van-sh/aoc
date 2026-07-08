@@ -2,7 +2,7 @@ import gleam/dict.{type Dict}
 import gleam/int
 import gleam/io
 import gleam/list
-import gleam/option.{Some, None}
+import gleam/option.{None, Some}
 import gleam/result
 import gleam/string
 import gleam/time/duration
