@@ -118,7 +118,7 @@ pub fn main() -> Nil {
     "Done in "
     <> int.to_string(seconds)
     <> "s and "
-    <> int.to_string(nanoseconds)
+    <> int.to_string(nanoseconds) |> string.pad_start(9, "0")
     <> "ns",
   )
 }
