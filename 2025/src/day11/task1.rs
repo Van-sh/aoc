@@ -60,7 +60,6 @@ fn dfs_task1_recursive(
     visited.insert(node.to_string(), true);
 
     for next_node in adj[node].iter() {
-        // println!("{} {}: {:?}", node, next_node, visited);
         if visited[next_node] {
             continue;
         }

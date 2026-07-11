@@ -67,7 +67,10 @@ fn task1() {
     println!("{total_button_presses}");
 }
 
-fn find_all_combinations<T: Clone + std::fmt::Debug>(arr: &Vec<T>) -> Vec<Vec<Vec<T>>> {
+fn find_all_combinations<T>(arr: &Vec<T>) -> Vec<Vec<Vec<T>>>
+where
+    T: Clone + std::fmt::Debug,
+{
     let mut result = Vec::new();
 
     for r in 1..arr.len() {
@@ -81,13 +84,15 @@ fn find_all_combinations<T: Clone + std::fmt::Debug>(arr: &Vec<T>) -> Vec<Vec<Ve
     result
 }
 
-fn combination_util<T: Clone + std::fmt::Debug>(
+fn combination_util<T>(
     arr: &Vec<T>,
     result: &mut Vec<Vec<T>>,
     data: &mut Vec<T>,
     r: usize,
     index: usize,
-) {
+) where
+    T: Clone + std::fmt::Debug,
+{
     if data.len() == r {
         result.push(data.to_vec());
         return;

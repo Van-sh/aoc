@@ -14,8 +14,8 @@ fn task2() {
     let lines = io::BufReader::new(file).lines();
 
     for line in lines.map_while(Result::ok) {
-        let direction: &str = &line[0..1];
-        let mut amount: i32 = line[1..].parse().unwrap();
+        let direction = &line[0..1];
+        let mut amount = line[1..].parse::<i32>().unwrap();
         if amount >= 100 {
             zero_count += amount / 100;
             amount %= 100;
@@ -23,7 +23,7 @@ fn task2() {
         let mut new_dial_pos = match direction {
             "L" => dial_pos - amount,
             "R" => dial_pos + amount,
-            &_ => panic!("Invalid input"),
+            _ => panic!("Invalid input"),
         };
 
         if new_dial_pos >= dial_pos {

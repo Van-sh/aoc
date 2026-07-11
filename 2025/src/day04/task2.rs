@@ -11,9 +11,9 @@ fn task2() {
 
     let file = File::open(PATH).unwrap();
 
-    let mut grid: Vec<_> = io::BufReader::new(file)
+    let mut grid = io::BufReader::new(file)
         .lines()
-        .map(|line| -> Vec<_> {
+        .map(|line| {
             line.unwrap()
                 .chars()
                 .map(|ch| match ch {
@@ -21,9 +21,9 @@ fn task2() {
                     '@' => 1,
                     _ => panic!("Invalid input"),
                 })
-                .collect()
+                .collect::<Vec<_>>()
         })
-        .collect();
+        .collect::<Vec<_>>();
 
     let mut iter = 0;
     loop {

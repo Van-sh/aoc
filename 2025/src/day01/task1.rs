@@ -14,12 +14,12 @@ fn task1() {
     let lines = io::BufReader::new(file).lines();
 
     for line in lines.map_while(Result::ok) {
-        let direction: &str = &line[0..1];
-        let amount: i32 = line[1..].parse().unwrap();
+        let direction = &line[0..1];
+        let amount = line[1..].parse::<i32>().unwrap();
         match direction {
             "L" => dial_pos = (dial_pos - amount) % 100,
             "R" => dial_pos = (dial_pos + amount) % 100,
-            &_ => panic!("Found invalid direction"),
+            _ => panic!("Found invalid direction"),
         }
 
         if dial_pos < 0 {

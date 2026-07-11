@@ -7,7 +7,7 @@ use std::{
 const PATH: &str = "inputs/day06/input.txt";
 
 fn task2() {
-    let mut result = 0u64;
+    let mut result = 0_u64;
 
     let file = File::open(PATH).unwrap();
     let mut lines = io::BufReader::new(file)
@@ -26,14 +26,14 @@ fn task2() {
     for operation in operations {
         println!("{operation}");
         let mut accum = match operation {
-            "+" => 0u64,
-            "*" => 1u64,
+            "+" => 0_u64,
+            "*" => 1_u64,
             _ => panic!("Invalid input"),
         };
         while col < lines[0].len() {
             let mut is_num = false;
 
-            let mut num = 0u64;
+            let mut num = 0_u64;
             for line in &lines {
                 if let Some(digit) = line[col].to_digit(10) {
                     is_num = true;

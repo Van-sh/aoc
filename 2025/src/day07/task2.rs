@@ -12,29 +12,28 @@ fn task2() {
 
     let origin_line = lines.next().unwrap().unwrap();
     let idx = origin_line.find("S").unwrap();
-    let mut frequencies = vec![0u64; origin_line.len()];
+    let mut frequencies = vec![0_u64; origin_line.len()];
     frequencies[idx] = 1;
 
     for line in lines.map_while(Result::ok) {
-        let mut next_frequencies = frequencies.clone();
+        let prev_frequencies = frequencies.clone();
         println!("{line}");
-        for idx in 0..frequencies.len() {
-            let frequency = frequencies[idx];
+        for idx in 0..prev_frequencies.len() {
+            let frequency = prev_frequencies[idx];
             if frequency == 0 {
                 continue;
             }
             if &line[idx..(idx + 1)] == "^" {
                 if idx > 0 {
-                    next_frequencies[idx - 1] += frequency;
+                    frequencies[idx - 1] += frequency;
                 }
                 if idx < line.len() - 1 {
-                    next_frequencies[idx + 1] += frequency;
+                    frequencies[idx + 1] += frequency;
                 }
-                next_frequencies[idx] -= frequency;
+                frequencies[idx] -= frequency;
             }
         }
-        println!("{:?}", next_frequencies);
-        frequencies = next_frequencies;
+        println!("{:?}", frequencies);
     }
 
     let mut timelines = 0;

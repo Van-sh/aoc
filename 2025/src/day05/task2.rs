@@ -9,7 +9,7 @@ use std::{
 const PATH: &str = "inputs/day05/input.txt";
 
 fn task2() {
-    let mut valid_ids = 0u64;
+    let mut valid_ids = 0_u64;
 
     let file = File::open(PATH).unwrap();
     let lines = io::BufReader::new(file).lines();

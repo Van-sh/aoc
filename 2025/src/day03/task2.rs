@@ -7,13 +7,13 @@ use std::{
 const PATH: &str = "inputs/day03/input.txt";
 
 fn task2() {
-    let mut total_joltage: u64 = 0;
+    let mut total_joltage = 0_u64;
 
     let file = File::open(PATH).unwrap();
     let lines = io::BufReader::new(file).lines();
 
     for line in lines.map_while(Result::ok) {
-        let chars: Vec<_> = line.chars().collect();
+        let chars = line.chars().collect::<Vec<_>>();
         let mut max_joltage = 0;
         let mut max_num_index = 0;
 

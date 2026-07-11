@@ -13,7 +13,7 @@ fn task1() {
     let lines = io::BufReader::new(file).lines();
 
     for line in lines.map_while(Result::ok) {
-        let chars: Vec<_> = line.chars().collect();
+        let chars = line.chars().collect::<Vec<_>>();
 
         let (max_num, max_num_index) = find_max_in_arr_slice(&chars[0..(chars.len() - 1)]);
         let mut max_joltage = 10 * max_num;

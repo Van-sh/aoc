@@ -7,22 +7,22 @@ fn task2() {
     let mut text = String::new();
     let _ = File::open(PATH).unwrap().read_to_string(&mut text).unwrap();
 
-    let ranges = text.trim().split(",").map(|range: &str| -> Vec<_> {
+    let ranges = text.trim().split(",").map(|range| {
         range
             .split("-")
-            .map(|s| -> i64 { s.parse().unwrap() })
-            .collect()
+            .map(|s| s.parse::<i64>().unwrap())
+            .collect::<Vec<_>>()
     });
 
     for range in ranges {
         for id in range[0]..=range[1] {
             let mut width = 0;
-            while 10i64.pow(width) <= id {
+            while 10_i64.pow(width) <= id {
                 width += 1;
             }
 
             for attempt_width in 1..=(width / 2) {
-                let cutoff = 10i64.pow(attempt_width);
+                let cutoff = 10_i64.pow(attempt_width);
 
                 let pattern = id % cutoff;
                 let mut tmp = id / cutoff;

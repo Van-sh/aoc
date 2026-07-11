@@ -12,7 +12,7 @@ use crate::structs::{DisjoinSets, Edge, Point};
 const PATH: &str = "inputs/day08/input.txt";
 
 fn task2() {
-    let mut result = 0u64;
+    let mut result = 0_u64;
 
     let file = File::open(PATH).unwrap();
     let lines = io::BufReader::new(file).lines();
