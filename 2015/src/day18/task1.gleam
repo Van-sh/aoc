@@ -18,11 +18,8 @@ fn task1() -> Nil {
     |> result.lazy_unwrap(fn() { panic as { "Failed to read " <> path } })
     |> string.trim
     |> string.split("\n")
-    |> list.map(string.to_graphemes)
     |> list.index_fold(dict.new(), fn(grid, line, row) {
-      list.index_fold(line, grid, fn(grid, cell, col) {
-        dict.insert(grid, #(row, col), cell == "#")
-      })
+      make_grid_row(grid, line, row, 0)
     })
     |> animate_frames(steps)
     |> dict.fold(0, fn(acc, _, is_on) {
@@ -69,6 +66,22 @@ fn animate_frames(
       })
       |> animate_frames(iterations - 1)
     }
+  }
+}
+
+fn make_grid_row(
+  grid: Dict(#(Int, Int), Bool),
+  line: String,
+  row: Int,
+  col: Int,
+) -> Dict(#(Int, Int), Bool) {
+  case line {
+    "" -> grid
+    "#" <> rest ->
+      dict.insert(grid, #(row, col), True) |> make_grid_row(rest, row, col + 1)
+    "." <> rest ->
+      dict.insert(grid, #(row, col), False) |> make_grid_row(rest, row, col + 1)
+    _ -> panic as { "unexpected line: " <> line }
   }
 }
 

@@ -1,3 +1,4 @@
+import gleam/bit_array
 import gleam/int
 import gleam/io
 import gleam/list
@@ -23,19 +24,20 @@ fn task2() -> Nil {
 }
 
 fn is_string_nice(line: String) -> Bool {
-  let line_graphemes = string.to_graphemes(line)
-  has_repeated_char_pair(line_graphemes)
-  && has_repeated_char_with_another_char_in_between(line_graphemes)
+  let chars = <<line:utf8>>
+  has_repeated_char_pair(chars)
+  && has_repeated_char_with_another_char_in_between(chars)
 }
 
-fn has_repeated_char_pair(graphemes: List(String)) -> Bool {
-  case graphemes {
-    [one, two, ..graphemes] -> {
-      case
-        string.join(graphemes, "")
-        |> string.contains(string.join([one, two], ""))
-      {
-        False -> has_repeated_char_pair([two, ..graphemes])
+fn has_repeated_char_pair(chars: BitArray) -> Bool {
+  case chars {
+    <<one, two, rest:bits>> -> {
+      let assert Ok(rest_string) = bit_array.to_string(rest) as "invalid string"
+      let assert Ok(pair) = bit_array.to_string(<<one, two>>)
+        as "invalid string"
+
+      case string.contains(rest_string, pair) {
+        False -> has_repeated_char_pair(<<two, rest:bits>>)
         True -> True
       }
     }
@@ -43,15 +45,12 @@ fn has_repeated_char_pair(graphemes: List(String)) -> Bool {
   }
 }
 
-fn has_repeated_char_with_another_char_in_between(
-  graphemes: List(String),
-) -> Bool {
-  case graphemes {
-    [curr_grapheme, ..graphemes] -> {
-      case graphemes {
-        [_, next_next_grapheme, ..] if curr_grapheme == next_next_grapheme ->
-          True
-        _ -> has_repeated_char_with_another_char_in_between(graphemes)
+fn has_repeated_char_with_another_char_in_between(chars: BitArray) -> Bool {
+  case chars {
+    <<current, rest:bits>> -> {
+      case rest {
+        <<_, next_next, _:bits>> if current == next_next -> True
+        _ -> has_repeated_char_with_another_char_in_between(rest)
       }
     }
     _ -> False

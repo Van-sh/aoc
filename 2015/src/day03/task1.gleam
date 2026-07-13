@@ -1,6 +1,5 @@
 import gleam/int
 import gleam/io
-import gleam/list
 import gleam/result
 import gleam/set.{type Set}
 import gleam/string
@@ -10,45 +9,47 @@ import simplifile
 
 const path: String = "inputs/day03/input.txt"
 
-fn task1() -> Nil {
-  let starting_position = #(0, 0)
+const starting_position: #(Int, Int) = #(0, 0)
 
+type State {
+  State(position: #(Int, Int), visited: Set(#(Int, Int)))
+}
+
+fn task1() -> Nil {
   let result =
     simplifile.read(path)
     |> result.lazy_unwrap(fn() { panic as { "Failed to read " <> path } })
-    |> string.to_graphemes
-    |> list.map(fn(char) {
-      case char {
-        "^" -> #(0, -1)
-        "v" -> #(0, 1)
-        "<" -> #(-1, 0)
-        ">" -> #(1, 0)
-        _ -> panic as "unexpected character"
-      }
-    })
-    |> get_visited_houses(set.from_list([starting_position]), starting_position)
+    |> get_visited_houses(State(
+      starting_position,
+      set.from_list([starting_position]),
+    ))
     |> int.to_string
 
   io.println(result)
 }
 
-fn get_visited_houses(
-  directions: List(#(Int, Int)),
-  visited: Set(#(Int, Int)),
-  position: #(Int, Int),
-) -> Int {
-  case directions {
-    [curr_direction, ..directions] -> {
-      let position = #(
-        position.0 + curr_direction.0,
-        position.1 + curr_direction.1,
-      )
-
-      let visited = set.insert(visited, position)
-      get_visited_houses(directions, visited, position)
-    }
-    _ -> set.size(visited)
+fn get_visited_houses(input: String, state: State) -> Int {
+  case input {
+    "" -> set.size(state.visited)
+    "^" <> rest_input ->
+      move(state, #(0, -1)) |> get_visited_houses(rest_input, _)
+    "v" <> rest_input ->
+      move(state, #(0, 1)) |> get_visited_houses(rest_input, _)
+    "<" <> rest_input ->
+      move(state, #(-1, 0)) |> get_visited_houses(rest_input, _)
+    ">" <> rest_input ->
+      move(state, #(1, 0)) |> get_visited_houses(rest_input, _)
+    _ -> panic as "unexpected character"
   }
+}
+
+fn move(state: State, direction: #(Int, Int)) -> State {
+  let State(position, visited) = state
+
+  let position = #(position.0 + direction.0, position.1 + direction.1)
+  let visited = set.insert(visited, position)
+
+  State(position, visited)
 }
 
 pub fn main() -> Nil {

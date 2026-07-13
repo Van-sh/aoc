@@ -1,6 +1,5 @@
 import gleam/int
 import gleam/io
-import gleam/list
 import gleam/result
 import gleam/string
 import gleam/time/duration
@@ -13,18 +12,19 @@ fn task1() -> Nil {
   let result =
     simplifile.read(path)
     |> result.lazy_unwrap(fn() { panic as { "Failed to read " <> path } })
-    |> string.to_graphemes
-    |> list.map(fn(char) {
-      case char {
-        "(" -> 1
-        ")" -> -1
-        _ -> panic as "unexpected character"
-      }
-    })
-    |> list.fold(0, fn(acc, direction) { acc + direction })
+    |> find_final_floor(0)
     |> int.to_string
 
   io.println(result)
+}
+
+fn find_final_floor(input: String, acc: Int) -> Int {
+  case input {
+    "" -> acc
+    "(" <> rest -> find_final_floor(rest, acc + 1)
+    ")" <> rest -> find_final_floor(rest, acc - 1)
+    _ -> panic as "unexpected character"
+  }
 }
 
 pub fn main() -> Nil {

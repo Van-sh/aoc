@@ -60,7 +60,7 @@ const rings = [
   Equipment(cost: 80, damage: 0, armor: 3),
 ]
 
-fn task1() -> Nil {
+fn task2() -> Nil {
   let rings =
     list.append([[]], list.map(rings, fn(ring) { [ring] }))
     |> list.append(list.combinations(rings, 2))
@@ -119,7 +119,7 @@ fn calculate_damage(damage: Int, armor: Int) -> Int {
 pub fn main() -> Nil {
   let start = timestamp.system_time()
 
-  task1()
+  task2()
 
   let #(seconds, nanoseconds) =
     timestamp.difference(start, timestamp.system_time())

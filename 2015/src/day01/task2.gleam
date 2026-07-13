@@ -1,6 +1,5 @@
 import gleam/int
 import gleam/io
-import gleam/list
 import gleam/result
 import gleam/string
 import gleam/time/duration
@@ -13,37 +12,39 @@ fn task2() -> Nil {
   let result =
     simplifile.read(path)
     |> result.lazy_unwrap(fn() { panic as { "Failed to read " <> path } })
-    |> string.to_graphemes
-    |> list.map(fn(char) {
-      case char {
-        "(" -> 1
-        ")" -> -1
-        _ -> panic as "unexpected character"
-      }
-    })
-    |> find_index_for_first_character_to_reach_basement(0, _, 1)
+    |> find_index_for_first_character_to_reach_basement(0, 1)
     |> int.to_string
 
   io.println(result)
 }
 
 fn find_index_for_first_character_to_reach_basement(
+  input: String,
   floor: Int,
-  directions: List(Int),
   index: Int,
 ) -> Int {
-  let assert [curr_direction, ..directions] = directions
-    as "we should never have an empty list as long as we enter basement at any point in time"
-
-  let floor = floor + curr_direction
-  case floor < 0 {
-    True -> index
-    False ->
+  case input {
+    "(" <> rest_input ->
       find_index_for_first_character_to_reach_basement(
-        floor,
-        directions,
+        rest_input,
+        floor + 1,
         index + 1,
       )
+    ")" <> rest_input -> {
+      let floor = floor - 1
+      case floor < 0 {
+        True -> index
+        False ->
+          find_index_for_first_character_to_reach_basement(
+            rest_input,
+            floor,
+            index + 1,
+          )
+      }
+    }
+    "" ->
+      panic as "we should never have an empty input as long as we enter basement at any point in time"
+    _ -> panic as "unexpected character"
   }
 }
 

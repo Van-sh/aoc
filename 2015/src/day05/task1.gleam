@@ -6,6 +6,7 @@ import gleam/string
 import gleam/time/duration
 import gleam/time/timestamp
 import simplifile
+import splitter.{type Splitter}
 
 const path: String = "inputs/day05/input.txt"
 
@@ -25,30 +26,22 @@ fn task1() -> Nil {
 }
 
 fn is_string_nice(line: String) -> Bool {
-  has_3_vowels(line)
-  && string.to_graphemes(line) |> has_repeated_char
+  has_3_vowels(line, splitter.new(["a", "e", "i", "o", "u"]), 0)
+  && has_repeated_char(<<line:utf8>>)
   && has_no_blacklisted_strings(line)
 }
 
-fn has_3_vowels(line: String) -> Bool {
-  string.to_graphemes(line)
-  |> list.fold(0, fn(vowel_count, char) {
-    case char {
-      "a" | "e" | "i" | "o" | "u" -> vowel_count + 1
-      _ -> vowel_count
-    }
-  })
-  |> fn(vowel_count) { vowel_count >= 3 }
+fn has_3_vowels(line: String, splitter: Splitter, count: Int) -> Bool {
+  case splitter.split(splitter, line) {
+    #(_, "", _) -> count >= 3
+    #(_, _, rest) -> has_3_vowels(rest, splitter, count + 1)
+  }
 }
 
-fn has_repeated_char(graphemes: List(String)) -> Bool {
-  case graphemes {
-    [curr_grapheme, ..graphemes] -> {
-      case graphemes {
-        [next_grapheme, ..] if curr_grapheme == next_grapheme -> True
-        _ -> has_repeated_char(graphemes)
-      }
-    }
+fn has_repeated_char(chars: BitArray) -> Bool {
+  case chars {
+    <<current, next, _:bits>> if current == next -> True
+    <<_, chars:bits>> -> has_repeated_char(chars)
     _ -> False
   }
 }

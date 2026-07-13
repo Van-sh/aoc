@@ -1,3 +1,4 @@
+import gleam/bit_array
 import gleam/int
 import gleam/io
 import gleam/list
@@ -15,7 +16,7 @@ fn task1() -> Nil {
     |> result.lazy_unwrap(fn() { panic as { "Failed to read " <> path } })
     |> string.trim
     |> string.split("\n")
-    |> list.map(string.to_graphemes)
+    |> list.map(bit_array.from_string)
     |> list.fold(#(0, 0), count_characters)
     |> fn(counts) { counts.0 - counts.1 }
     |> int.to_string
@@ -23,17 +24,18 @@ fn task1() -> Nil {
   io.println(result)
 }
 
-fn count_characters(acc: #(Int, Int), line: List(String)) -> #(Int, Int) {
+fn count_characters(acc: #(Int, Int), line: BitArray) -> #(Int, Int) {
   case line {
-    ["\"", ..rest_line] -> count_characters(#(acc.0 + 1, acc.1), rest_line)
-    ["\\", "\\", ..rest_line] ->
+    <<"\"", rest_line:bits>> -> count_characters(#(acc.0 + 1, acc.1), rest_line)
+    <<"\\", "\\", rest_line:bits>> ->
       count_characters(#(acc.0 + 2, acc.1 + 1), rest_line)
-    ["\\", "\"", ..rest_line] ->
+    <<"\\", "\"", rest_line:bits>> ->
       count_characters(#(acc.0 + 2, acc.1 + 1), rest_line)
-    ["\\", "x", _, _, ..rest_line] ->
+    <<"\\", "x", _, _, rest_line:bits>> ->
       count_characters(#(acc.0 + 4, acc.1 + 1), rest_line)
-    [_, ..rest_line] -> count_characters(#(acc.0 + 1, acc.1 + 1), rest_line)
-    [] -> acc
+    <<_, rest_line:bits>> ->
+      count_characters(#(acc.0 + 1, acc.1 + 1), rest_line)
+    _ -> acc
   }
 }
 

@@ -5,6 +5,7 @@ import gleam/string
 import gleam/time/duration
 import gleam/time/timestamp
 import simplifile
+import splitter.{type Splitter}
 
 const path: String = "inputs/day10/input.txt"
 
@@ -13,41 +14,47 @@ fn task1() -> Nil {
     simplifile.read(path)
     |> result.lazy_unwrap(fn() { panic as { "Failed to read " <> path } })
     |> string.trim
-    |> string.to_graphemes
-    |> look_and_say_repeat(40)
+    |> look_and_say_repeat(
+      40,
+      splitter.new(["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]),
+    )
     |> string.length
     |> int.to_string
 
   io.println(result)
 }
 
-fn look_and_say_repeat(input: List(String), times: Int) -> String {
+fn look_and_say_repeat(
+  input: String,
+  times: Int,
+  digit_splitter: Splitter,
+) -> String {
   case times {
-    0 -> string.join(input, "")
+    0 -> input
     _ -> {
-      let assert [first_character, ..] = input as "Got empty input"
-      let input =
-        look_and_say(input, first_character, 0, "")
-        |> string.to_graphemes
-      look_and_say_repeat(input, times - 1)
+      let assert Ok(first_character) = string.first(input) as "Got empty input"
+
+      look_and_say(input, first_character, 0, digit_splitter, "")
+      |> look_and_say_repeat(times - 1, digit_splitter)
     }
   }
 }
 
 fn look_and_say(
-  input: List(String),
-  current_char: String,
+  input: String,
+  current_digit: String,
   count: Int,
+  digit_splitter: Splitter,
   output: String,
 ) -> String {
-  case input {
-    [first, ..input] if first == current_char ->
-      look_and_say(input, first, count + 1, output)
-    [first, ..input] -> {
-      let output = output <> int.to_string(count) <> current_char
-      look_and_say(input, first, 1, output)
+  case splitter.split_after(digit_splitter, input) {
+    #("", "") -> output <> int.to_string(count) <> current_digit
+    #(first, rest) if first == current_digit ->
+      look_and_say(rest, first, count + 1, digit_splitter, output)
+    #(first, rest) -> {
+      let output = output <> int.to_string(count) <> current_digit
+      look_and_say(rest, first, 1, digit_splitter, output)
     }
-    [] -> output <> int.to_string(count) <> current_char
   }
 }
 

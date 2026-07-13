@@ -1,6 +1,5 @@
 import gleam/int
 import gleam/io
-import gleam/list
 import gleam/result
 import gleam/set.{type Set}
 import gleam/string
@@ -10,75 +9,66 @@ import simplifile
 
 const path: String = "inputs/day03/input.txt"
 
-fn task2() -> Nil {
-  let starting_position = #(0, 0)
+const starting_position: #(Int, Int) = #(0, 0)
 
+type State {
+  State(
+    santa_position: #(Int, Int),
+    robo_santa_position: #(Int, Int),
+    visited: Set(#(Int, Int)),
+    is_santas_turn: Bool,
+  )
+}
+
+fn task2() -> Nil {
   let result =
     simplifile.read(path)
     |> result.lazy_unwrap(fn() { panic as { "Failed to read " <> path } })
-    |> string.to_graphemes
-    |> list.map(fn(char) {
-      case char {
-        "^" -> #(0, -1)
-        "v" -> #(0, 1)
-        "<" -> #(-1, 0)
-        ">" -> #(1, 0)
-        _ -> panic as "unexpected character"
-      }
-    })
-    |> get_visited_houses(
+    |> get_visited_houses(State(
+      starting_position,
+      starting_position,
       set.from_list([starting_position]),
-      starting_position,
-      starting_position,
       True,
-    )
+    ))
     |> int.to_string
 
   io.println(result)
 }
 
-fn get_visited_houses(
-  directions: List(#(Int, Int)),
-  visited: Set(#(Int, Int)),
-  santa_position: #(Int, Int),
-  robo_santa_position: #(Int, Int),
-  is_santas_turn: Bool,
-) -> Int {
-  case directions {
-    [curr_direction, ..directions] -> {
-      case is_santas_turn {
-        True -> {
-          let santa_position = #(
-            santa_position.0 + curr_direction.0,
-            santa_position.1 + curr_direction.1,
-          )
+fn get_visited_houses(input: String, state: State) -> Int {
+  case input {
+    "" -> set.size(state.visited)
+    "^" <> rest_input ->
+      move(state, #(0, -1)) |> get_visited_houses(rest_input, _)
+    "v" <> rest_input ->
+      move(state, #(0, 1)) |> get_visited_houses(rest_input, _)
+    "<" <> rest_input ->
+      move(state, #(-1, 0)) |> get_visited_houses(rest_input, _)
+    ">" <> rest_input ->
+      move(state, #(1, 0)) |> get_visited_houses(rest_input, _)
+    _ -> panic as "unexpected character"
+  }
+}
 
-          let visited = set.insert(visited, santa_position)
-          get_visited_houses(
-            directions,
-            visited,
-            santa_position,
-            robo_santa_position,
-            False,
-          )
-        }
-        False -> {
-          let robo_santa_position = #(
-            robo_santa_position.0 + curr_direction.0,
-            robo_santa_position.1 + curr_direction.1,
-          )
-          let visited = set.insert(visited, robo_santa_position)
-          get_visited_houses(
-            directions,
-            visited,
-            santa_position,
-            robo_santa_position,
-            True,
-          )
-        }
-      }
+fn move(state: State, direction: #(Int, Int)) {
+  case state.is_santas_turn {
+    True -> {
+      let santa_position = #(
+        state.santa_position.0 + direction.0,
+        state.santa_position.1 + direction.1,
+      )
+
+      let visited = set.insert(state.visited, santa_position)
+      State(..state, santa_position:, visited:, is_santas_turn: False)
     }
-    _ -> set.size(visited)
+    False -> {
+      let robo_santa_position = #(
+        state.robo_santa_position.0 + direction.0,
+        state.robo_santa_position.1 + direction.1,
+      )
+      let visited = set.insert(state.visited, robo_santa_position)
+      State(..state, robo_santa_position:, visited:, is_santas_turn: True)
+    }
   }
 }
 
