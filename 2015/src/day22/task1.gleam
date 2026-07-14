@@ -30,7 +30,7 @@ type Spells {
   Recharge
 }
 
-const spells = [
+const spells: List(Spells) = [
   MagicMissile,
   Drain,
   Shield,
@@ -38,35 +38,35 @@ const spells = [
   Recharge,
 ]
 
-const magic_missile_damage = 4
+const magic_missile_damage: Int = 4
 
-const magic_missile_mana_cost = 53
+const magic_missile_mana_cost: Int = 53
 
-const drain_damage = 2
+const drain_damage: Int = 2
 
-const drain_mana_cost = 73
+const drain_mana_cost: Int = 73
 
-const shield_armor = 7
+const shield_armor: Int = 7
 
-const shield_mana_cost = 113
+const shield_mana_cost: Int = 113
 
-const poison_damage = 3
+const poison_damage: Int = 3
 
-const poison_mana_cost = 173
+const poison_mana_cost: Int = 173
 
-const recharge_mana = 101
+const recharge_mana: Int = 101
 
-const recharge_mana_cost = 229
+const recharge_mana_cost: Int = 229
 
 type EffectTimers {
   EffectTimers(shield: Int, poison: Int, recharge: Int)
 }
 
-const shield_duration = 6
+const shield_duration: Int = 6
 
-const poison_duration = 6
+const poison_duration: Int = 6
 
-const recharge_duration = 5
+const recharge_duration: Int = 5
 
 fn task1() -> Nil {
   let result =

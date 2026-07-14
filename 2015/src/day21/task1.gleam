@@ -17,7 +17,7 @@ type Equipment {
   Equipment(cost: Int, damage: Int, armor: Int)
 }
 
-const weapons = [
+const weapons: List(Equipment) = [
   // Dagger
   Equipment(cost: 8, damage: 4, armor: 0),
   // Shortsword
@@ -30,7 +30,7 @@ const weapons = [
   Equipment(cost: 74, damage: 8, armor: 0),
 ]
 
-const armors = [
+const armors: List(Equipment) = [
   // None
   Equipment(cost: 0, damage: 0, armor: 0),
   // Leather
@@ -45,7 +45,7 @@ const armors = [
   Equipment(cost: 102, damage: 0, armor: 5),
 ]
 
-const rings = [
+const rings: List(Equipment) = [
   // Damage +1
   Equipment(cost: 25, damage: 1, armor: 0),
   // Damage +2
