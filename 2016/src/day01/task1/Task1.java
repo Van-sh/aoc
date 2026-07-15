@@ -46,12 +46,12 @@ public class Task1 {
             this.direction = switch (turnDirection) {
                case 'R' -> this.direction.turnRight();
                case 'L' -> this.direction.turnLeft();
-               default -> throw new Exception("hello");
+               default -> throw new RuntimeException("Invalid direction");
             };
             move(distance);
          }
 
-         System.out.println(String.format("%s", Math.abs(x) + Math.abs(y)));
+         System.out.println(String.format("%s", Math.abs(this.x) + Math.abs(this.y)));
       } catch (Exception e) {
          System.err.println(e);
          System.exit(1);

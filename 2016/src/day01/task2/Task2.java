@@ -54,7 +54,7 @@ public class Task2 {
             this.direction = switch (turnDirection) {
                case 'R' -> this.direction.turnRight();
                case 'L' -> this.direction.turnLeft();
-               default -> throw new Exception("hello");
+               default -> throw new RuntimeException("Invalid Direction");
             };
             if (moveAndCheckForDestination(distance)) {
                break;
