@@ -33,8 +33,7 @@ enum Direction {
 public class Task1 {
    Path path = Path.of("inputs", "day01", "input.txt");
    Direction direction = Direction.North;
-   int x;
-   int y;
+   int x, y;
 
    void task() {
       try {
@@ -66,7 +65,6 @@ public class Task1 {
          case East -> this.x += distance;
          case West -> this.x -= distance;
       }
-      ;
    }
 
    public static void main(String[] args) {
