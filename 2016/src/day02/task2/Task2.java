@@ -5,9 +5,6 @@ import java.nio.file.Path;
 import java.time.Duration;
 import java.time.Instant;
 
-record Bounds(int min, int max) {
-}
-
 public class Task2 {
    Path path = Path.of("inputs", "day02", "input.txt");
    int row = 2, col = 0;
@@ -72,4 +69,7 @@ public class Task2 {
 
       System.out.println("Done in " + Duration.between(start, Instant.now()).toString().substring(2).toLowerCase());
    }
+}
+
+record Bounds(int min, int max) {
 }

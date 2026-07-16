@@ -6,37 +6,6 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.HashSet;
 
-enum Direction {
-   North,
-   South,
-   East,
-   West;
-
-   Direction turnRight() {
-      return switch (this) {
-         case North -> East;
-         case South -> West;
-         case East -> South;
-         case West -> North;
-      };
-   }
-
-   Direction turnLeft() {
-      return switch (this) {
-         case North -> West;
-         case South -> East;
-         case East -> North;
-         case West -> South;
-      };
-   }
-}
-
-record Vector2D(int x, int y) {
-   int getDistanceFromOrigin() {
-      return Math.abs(this.x) + Math.abs(this.y);
-   }
-}
-
 public class Task2 {
    Path path = Path.of("inputs", "day01", "input.txt");
    Direction direction = Direction.North;
@@ -61,7 +30,7 @@ public class Task2 {
             }
          }
 
-         System.out.println(String.format("%s", this.location.getDistanceFromOrigin()));
+         System.out.println(this.location.getDistanceFromOrigin());
       } catch (Exception e) {
          System.err.println(e);
          System.exit(1);
@@ -91,5 +60,36 @@ public class Task2 {
       new Task2().task();
 
       System.out.println("Done in " + Duration.between(start, Instant.now()).toString().substring(2).toLowerCase());
+   }
+}
+
+record Vector2D(int x, int y) {
+   int getDistanceFromOrigin() {
+      return Math.abs(this.x) + Math.abs(this.y);
+   }
+}
+
+enum Direction {
+   North,
+   South,
+   East,
+   West;
+
+   Direction turnRight() {
+      return switch (this) {
+         case North -> East;
+         case South -> West;
+         case East -> South;
+         case West -> North;
+      };
+   }
+
+   Direction turnLeft() {
+      return switch (this) {
+         case North -> West;
+         case South -> East;
+         case East -> North;
+         case West -> South;
+      };
    }
 }
