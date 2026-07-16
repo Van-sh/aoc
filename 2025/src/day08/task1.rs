@@ -46,10 +46,6 @@ fn task1() {
     let mut disjoint_sets = DisjoinSets::new(points.len());
     for _ in 0..CONNECTIONS {
         let distance = distances.pop().unwrap().0;
-        println!(
-            "{:?} {:?} {:?}",
-            distance, points[distance.points.0], points[distance.points.1]
-        );
         disjoint_sets.unite(distance.points.0, distance.points.1);
     }
 
@@ -57,11 +53,7 @@ fn task1() {
     for i in 0..points.len() {
         let parent = disjoint_sets.find_parent(i);
         *frequencies.entry(parent).or_insert(0) += 1;
-        println!("{} {}", i, frequencies[&parent]);
     }
-
-    println!("{:?}", disjoint_sets);
-    println!("{:#?}", frequencies);
 
     let mut frequencies = frequencies.into_values().collect::<Vec<_>>();
     frequencies.sort_by(|a, b| b.cmp(a));

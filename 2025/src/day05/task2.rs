@@ -39,7 +39,6 @@ fn task2() {
     let mut prev_range = Option::<Range>::None;
 
     for curr_range in ranges {
-        println!("{:?}", curr_range);
         match prev_range {
             None => {
                 prev_range = Some(curr_range);
@@ -47,14 +46,8 @@ fn task2() {
             }
             Some(prev_range_value) => {
                 if prev_range_value.high > curr_range.high {
-                    println!("Already accounted for");
                 } else if prev_range_value.high >= curr_range.low {
                     valid_ids += curr_range.high - prev_range_value.high;
-                    println!("expanding {:?} with {:?}", prev_range_value, curr_range);
-                    println!(
-                        "{}-{} | {}",
-                        prev_range_value.high, curr_range.high, valid_ids
-                    );
                     prev_range = Some(Range {
                         high: curr_range.high,
                         ..prev_range_value
@@ -66,7 +59,6 @@ fn task2() {
                 }
             }
         }
-        println!("{}-{} | {}", curr_range.low, curr_range.high, valid_ids);
     }
 
     println!("{valid_ids}")

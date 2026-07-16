@@ -38,7 +38,6 @@ fn task1() {
 
             // Corners always accessible
             if (on_top_edge || on_bottom_edge) && (on_left_edge || on_right_edge) {
-                println!("Found {} at corner ({}, {})", grid[i][j], i, j);
                 accessible_rolls += 1;
                 continue;
             }
@@ -63,10 +62,6 @@ fn task1() {
             }
 
             if neighbours < 4 {
-                println!(
-                    "Found {} at ({}, {}) with {} neighbours",
-                    grid[i][j], i, j, neighbours
-                );
                 accessible_rolls += 1;
             }
         }

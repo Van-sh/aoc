@@ -28,7 +28,6 @@ fn task2() {
             max_joltage = max_joltage * 10 + max_num;
         }
 
-        println!("{}", max_joltage);
         total_joltage += max_joltage;
     }
     println!("{total_joltage}")

@@ -47,7 +47,7 @@ fn task2() {
     }
 
     for i in 0..(coords.len() - 1) {
-        for j in (i + 1)..coords.len() {
+        'check_collisions: for j in (i + 1)..coords.len() {
             let (x1, y1) = (coords[i].0.min(coords[j].0), coords[i].1.min(coords[j].1));
             let (x2, y2) = (coords[i].0.max(coords[j].0), coords[i].1.max(coords[j].1));
 
@@ -55,78 +55,26 @@ fn task2() {
                 continue;
             }
 
-            let mut edge_is_inside = false;
-
             for edge in &horizontal_edges {
                 let (edge_x1, edge_y) = coords[edge.0];
                 let edge_x2 = coords[edge.1].0;
 
-                if y1 < edge_y && edge_y < y2 {
-                    if edge_x1 <= x1 && x1 < edge_x2 {
-                        println!(
-                            "Skipping cause edge ({}-{}, {}) is inside {:?}-{:?} on the left edge",
-                            edge_x1,
-                            edge_x2,
-                            edge_y,
-                            (x1, y1),
-                            (x2, y2)
-                        );
-                        edge_is_inside = true;
-                        break;
-                    }
-                    if edge_x1 < x2 && x2 <= edge_x2 {
-                        println!(
-                            "Skipping cause edge ({}-{}, {}) is inside {:?}-{:?} on the right edge",
-                            edge_x1,
-                            edge_x2,
-                            edge_y,
-                            (x1, y1),
-                            (x2, y2)
-                        );
-                        edge_is_inside = true;
-                        break;
-                    }
+                if (y1 < edge_y && edge_y < y2)
+                    && ((edge_x1 <= x1 && x1 < edge_x2) || (edge_x1 < x2 && x2 <= edge_x2))
+                {
+                    continue 'check_collisions;
                 }
-            }
-
-            if edge_is_inside {
-                continue;
             }
 
             for edge in &vertical_edges {
                 let (edge_x, edge_y1) = coords[edge.0];
                 let edge_y2 = coords[edge.1].1;
 
-                if x1 < edge_x && edge_x < x2 {
-                    if edge_y1 <= y1 && y1 < edge_y2 {
-                        println!(
-                            "Skipping cause edge ({}, {}-{}) is inside {:?}-{:?} on the top edge",
-                            edge_x,
-                            edge_y1,
-                            edge_y2,
-                            (x1, y1),
-                            (x2, y2)
-                        );
-                        edge_is_inside = true;
-                        break;
-                    }
-                    if edge_y1 < y2 && y2 <= edge_y2 {
-                        println!(
-                            "Skipping cause edge ({}, {}-{}) is inside {:?}-{:?} on the bottom edge",
-                            edge_x,
-                            edge_y1,
-                            edge_y2,
-                            (x1, y1),
-                            (x2, y2)
-                        );
-                        edge_is_inside = true;
-                        break;
-                    }
+                if (x1 < edge_x && edge_x < x2)
+                    && ((edge_y1 <= y1 && y1 < edge_y2) || (edge_y1 < y2 && y2 <= edge_y2))
+                {
+                    break 'check_collisions;
                 }
-            }
-
-            if edge_is_inside {
-                break;
             }
 
             let area = (x2 - x1 + 1) * (y2 - y1 + 1);
@@ -134,7 +82,6 @@ fn task2() {
             if area > max_area {
                 max_area = area;
             }
-            println!("Area for {:?} and {:?} is {}", coords[i], coords[j], area);
         }
     }
 

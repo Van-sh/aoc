@@ -36,11 +36,8 @@ fn task2() {
             })
             .collect::<Vec<_>>();
 
-        println!("{:?} {:?}", wiring_schematics, joltage_requirements);
-
         let min_presses = find_all_presses(&wiring_schematics, &joltage_requirements);
 
-        println!("{:?}", min_presses);
         total_button_presses += min_presses
     }
 

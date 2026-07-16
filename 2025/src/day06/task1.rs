@@ -24,14 +24,12 @@ fn task1() {
     let operations = split_lines.pop().unwrap();
 
     for (i, &operation) in operations.iter().enumerate() {
-        println!("{}", operation);
         let mut accum = match operation {
             "*" => 1_u64,
             "+" => 0_u64,
             _ => panic!("Invalid input"),
         };
         for split_line in &split_lines {
-            println!("{}", split_line[i]);
             match operation {
                 "*" => {
                     accum *= split_line[i].parse::<u64>().unwrap();
@@ -42,7 +40,6 @@ fn task1() {
                 _ => panic!("Invalid input"),
             }
         }
-        println!("{}", accum);
         result += accum
     }
 

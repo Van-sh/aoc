@@ -24,7 +24,6 @@ fn task2() {
 
     let mut col = 0;
     for operation in operations {
-        println!("{operation}");
         let mut accum = match operation {
             "+" => 0_u64,
             "*" => 1_u64,
@@ -45,14 +44,12 @@ fn task2() {
             if !is_num {
                 break;
             }
-            println!("\t\tnum: {num}");
             accum = match operation {
                 "+" => accum + num,
                 "*" => accum * num,
                 _ => panic!("Invalid input"),
             }
         }
-        println!("\taccum: {accum}");
         result += accum;
     }
 

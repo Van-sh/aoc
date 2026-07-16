@@ -35,7 +35,6 @@ fn task1() {
             if area > max_area {
                 max_area = area;
             }
-            println!("Area for {:?} and {:?} is {}", coords[i], coords[j], area);
         }
     }
 

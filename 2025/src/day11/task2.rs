@@ -28,9 +28,9 @@ fn task2() {
         adj.insert(node, paths);
     }
     let adj = Arc::new(adj);
-    let res = solve_task2(adj);
+    let result = solve_task2(adj);
 
-    println!("{:#?}", res);
+    println!("{:#?}", result);
 }
 
 fn solve_task2(adjacency_list: Arc<HashMap<String, Vec<String>>>) -> u64 {

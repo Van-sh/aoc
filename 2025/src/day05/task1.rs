@@ -23,15 +23,11 @@ fn task1() {
         ranges.push((limits[0].parse().unwrap(), limits[1].parse().unwrap()));
     }
 
-    println!("ranges: {:?}", ranges);
-
     for line in lines.by_ref().map_while(Result::ok) {
         let id = line.parse::<u64>().unwrap();
-        println!("Checking {}", id);
 
         for (low, high) in &ranges {
             if low <= &id && &id <= high {
-                println!("{} found between {} and {}", id, low, high);
                 valid_ids += 1;
                 break;
             }

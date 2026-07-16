@@ -25,9 +25,9 @@ fn task1() {
 
         adj.insert(node, paths);
     }
-    let res = dfs_task1(&adj);
+    let result = dfs_task1(&adj);
 
-    println!("{:#?}", res);
+    println!("{:#?}", result);
 }
 
 fn dfs_task1(adjacency_list: &HashMap<String, Vec<String>>) -> u32 {
@@ -37,26 +37,18 @@ fn dfs_task1(adjacency_list: &HashMap<String, Vec<String>>) -> u32 {
         visited.insert(node.clone(), false);
     }
 
-    let mut res = 0;
-    dfs_task1_recursive(
-        adjacency_list,
-        &mut visited,
-        starting_node,
-        &mut res,
-        &mut vec![],
-    );
+    let mut result = 0;
+    dfs_task1_recursive(adjacency_list, &mut visited, starting_node, &mut result);
 
-    res
+    result
 }
 
 fn dfs_task1_recursive(
     adj: &HashMap<String, Vec<String>>,
     visited: &mut HashMap<String, bool>,
     node: &str,
-    res: &mut u32,
-    debug: &mut Vec<String>,
+    result: &mut u32,
 ) {
-    debug.push(node.to_string());
     visited.insert(node.to_string(), true);
 
     for next_node in adj[node].iter() {
@@ -64,14 +56,11 @@ fn dfs_task1_recursive(
             continue;
         }
         if next_node == "out" {
-            *res += 1;
-            debug.push("out".to_string());
-            println!("{:?}", debug);
-            debug.pop();
+            *result += 1;
             continue;
         }
 
-        dfs_task1_recursive(adj, visited, next_node, res, debug);
+        dfs_task1_recursive(adj, visited, next_node, result);
     }
     visited.insert(node.to_string(), false);
 }

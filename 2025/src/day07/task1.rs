@@ -22,7 +22,6 @@ fn task1() {
         for idx in indexes.clone() {
             if &line[idx..(idx + 1)] == "^" {
                 encountered_splitters += 1;
-                println!("Splitter found at {}", idx);
                 if idx < line.len() - 1 {
                     indexes.insert(idx + 1);
                 }
@@ -34,9 +33,6 @@ fn task1() {
         }
     }
 
-    let mut indexes = indexes.iter().collect::<Vec<_>>();
-    indexes.sort();
-    println!("{:?}", indexes);
     println!("{encountered_splitters}")
 }
 

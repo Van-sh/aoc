@@ -35,14 +35,11 @@ fn task1() {
             })
             .collect::<Vec<_>>();
 
-        println!("{:?} {:?}", light_diagram, wiring_schematics);
-
         let combinations = find_all_combinations(&wiring_schematics);
 
         for combinations in combinations {
             let mut done = false;
             for combination in combinations {
-                println!("Combination {:?}", combination);
                 let mut lights = vec![false; light_diagram.len()];
                 let presses = combination.len();
 
@@ -51,7 +48,6 @@ fn task1() {
                         lights[wire] = !lights[wire];
                     }
                 }
-                println!("{:?}", lights);
                 if lights == light_diagram {
                     total_button_presses += presses;
                     done = true;

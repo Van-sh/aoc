@@ -17,7 +17,6 @@ fn task2() {
 
     for line in lines.map_while(Result::ok) {
         let prev_frequencies = frequencies.clone();
-        println!("{line}");
         for idx in 0..prev_frequencies.len() {
             let frequency = prev_frequencies[idx];
             if frequency == 0 {
@@ -33,13 +32,9 @@ fn task2() {
                 frequencies[idx] -= frequency;
             }
         }
-        println!("{:?}", frequencies);
     }
 
-    let mut timelines = 0;
-    for frequency in frequencies {
-        timelines += frequency;
-    }
+    let timelines = frequencies.iter().sum::<u64>();
     println!("{timelines}");
 }
 

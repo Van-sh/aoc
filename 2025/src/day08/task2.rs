@@ -49,21 +49,14 @@ fn task2() {
     let mut merges = 0;
     for edge in distances {
         let edge = edge.0;
-        println!(
-            "{:?} {:?} {:?}",
-            edge, points[edge.points.0], points[edge.points.1]
-        );
         if disjoint_sets.unite(edge.points.0, edge.points.1) {
             merges += 1;
-            println!("Merging");
             result = points[edge.points.0].x * points[edge.points.1].x;
         }
         if merges == points.len() - 1 {
             break;
         }
     }
-
-    println!("{:?}", disjoint_sets);
 
     println!("{result}")
 }

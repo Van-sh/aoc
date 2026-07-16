@@ -21,7 +21,6 @@ fn task1() {
         let (max_num, _) = find_max_in_arr_slice(&chars[(max_num_index + 1)..chars.len()]);
         max_joltage += max_num;
 
-        println!("{}", max_joltage);
         total_joltage += max_joltage;
     }
     println!("{total_joltage}")

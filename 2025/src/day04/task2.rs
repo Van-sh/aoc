@@ -25,10 +25,7 @@ fn task2() {
         })
         .collect::<Vec<_>>();
 
-    let mut iter = 0;
     loop {
-        println!("Iteration - {}", iter);
-        iter += 1;
         let mut accessible_rolls_coords = Vec::<(usize, usize)>::new();
 
         for i in 0..grid.len() {
@@ -44,7 +41,6 @@ fn task2() {
 
                 // Corners always accessible
                 if (on_top_edge || on_bottom_edge) && (on_left_edge || on_right_edge) {
-                    println!("Found {} at corner ({}, {})", grid[i][j], i, j);
                     accessible_rolls_coords.push((i, j));
                     continue;
                 }
@@ -69,10 +65,6 @@ fn task2() {
                 }
 
                 if neighbours < 4 {
-                    println!(
-                        "Found {} at ({}, {}) with {} neighbours",
-                        grid[i][j], i, j, neighbours
-                    );
                     accessible_rolls_coords.push((i, j));
                 }
             }
