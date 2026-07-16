@@ -23,7 +23,7 @@ public class Task1 {
                case 'L' -> this.direction.turnLeft();
                default -> throw new RuntimeException("Invalid direction");
             };
-            move(distance);
+            this.move(distance);
          }
 
          System.out.println(Math.abs(this.x) + Math.abs(this.y));

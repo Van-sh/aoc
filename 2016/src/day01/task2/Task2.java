@@ -25,7 +25,7 @@ public class Task2 {
                case 'L' -> this.direction.turnLeft();
                default -> throw new RuntimeException("Invalid Direction");
             };
-            if (moveAndCheckForDestination(distance)) {
+            if (this.moveAndCheckForDestination(distance)) {
                break;
             }
          }
