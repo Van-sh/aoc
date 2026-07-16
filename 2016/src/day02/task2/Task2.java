@@ -44,7 +44,7 @@ public class Task2 {
    }
 
    void pressCurrentKey() {
-      result.append(Integer.toString(this.col + switch (this.row) {
+      this.result.append(Integer.toString(this.col + switch (this.row) {
          case 0 -> -1;
          case 1 -> 1;
          case 2 -> 5;
