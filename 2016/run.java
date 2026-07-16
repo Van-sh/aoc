@@ -13,35 +13,54 @@ public class run {
          run.usage();
       }
       var dayAndTask = args[0].substring(3).split("-");
-      if (dayAndTask.length != 2) {
-         run.usage();
-      }
-      try {
-         var day = Integer.parseInt(dayAndTask[0]);
-         var task = Integer.parseInt(dayAndTask[1]);
 
-         if (1 > day || day > 25 || 1 > task || task > 2) {
-            run.usage();
+      try {
+         var day = 0;
+         var task = "";
+
+         switch (dayAndTask.length) {
+            case 1 -> {
+               day = Integer.parseInt(dayAndTask[0]);
+               if (day != 25) {
+                  run.usage();
+               }
+            }
+            case 2 -> {
+               day = Integer.parseInt(dayAndTask[0]);
+               if (1 > day || day > 24) {
+                  run.usage();
+               }
+               task = dayAndTask[1];
+               if (!task.equals("1") && !task.equals("2")) {
+                  run.usage();
+               }
+            }
+            default -> run.usage();
          }
 
          var filePath = Path.of("src",
                String.format("day%02d", day),
-               String.format("task%d", task),
-               String.format("Task%d.java", task));
+               String.format("task%s", task),
+               String.format("Task%s.java", task));
 
          new ProcessBuilder("java", filePath.toString())
                .inheritIO()
                .start()
                .waitFor();
       } catch (Exception e) {
-         run.usage();
+         run.usage(false);
          e.printStackTrace();
          System.exit(1);
       }
    }
 
    static public void usage() {
+      usage(true);
+   }
+
+   static public void usage(boolean exit) {
       System.err.println("Usage: java run.java day{day_number}-{task_number}");
-      System.exit(2);
+      if (exit)
+         System.exit(2);
    }
 }
