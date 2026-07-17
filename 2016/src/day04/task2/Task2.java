@@ -4,7 +4,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Task2 {
@@ -66,28 +65,5 @@ class Room {
          builder.append((char) replaced);
       }
       return builder.toString();
-   }
-
-   boolean isReal() {
-      for (var ch : this.encryptedName.toCharArray()) {
-         this.frequencies.put(ch, this.frequencies.getOrDefault(ch, 0) + 1);
-      }
-
-      var entries = new ArrayList<>(this.frequencies.entrySet());
-      entries.sort((a, b) -> {
-         var aCount = a.getValue();
-         var bCount = b.getValue();
-
-         if (aCount != bCount) {
-            return bCount - aCount;
-         } else {
-            return (int) a.getKey() - (int) b.getKey();
-         }
-      });
-
-      var check = new StringBuilder();
-      entries.subList(0, 5).forEach((entry) -> check.append(entry.getKey()));
-
-      return check.toString().equals(this.checksum);
    }
 }
