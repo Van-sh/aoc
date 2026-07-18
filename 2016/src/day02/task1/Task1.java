@@ -26,7 +26,7 @@ public class Task1 {
 
          System.out.println(this.result.toString());
       } catch (Exception e) {
-         System.err.println(e);
+         e.printStackTrace();
          System.exit(1);
       }
    }

@@ -38,7 +38,7 @@ public class Task2 {
 
          System.out.println(this.result.toString());
       } catch (Exception e) {
-         System.err.println(e);
+         e.printStackTrace();
          System.exit(1);
       }
    }

@@ -28,7 +28,7 @@ public class Task1 {
 
          System.out.println(Math.abs(this.x) + Math.abs(this.y));
       } catch (Exception e) {
-         System.err.println(e);
+         e.printStackTrace();
          System.exit(1);
       }
    }
