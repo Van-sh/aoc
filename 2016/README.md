@@ -2,7 +2,7 @@
 
 ## Done in Java
 
-to execute any solution, run the following command from `2025/` directory
+to execute any solution, run the following command from `2016/` directory
 
 ```sh
 java run.java day{day_number}-{task_number}

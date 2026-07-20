@@ -1,15 +1,17 @@
-# AOC 2015
+# AOC 2025
 
-## Done in Gleam
+## Done in TypeScript using Bun
 
-to execute any solution, run the following command from `2015/` directory
+to execute any solution, run the following command from `2017/` directory
 
 ```sh
-gleam run -m day{day_number}/task{task_number}
+bun day{day_number}-{task_number}
 # eg.
-gleam run -m day01/task2
-gleam run -m day10/task1
+bun day1-2
+bun day10-1
 ```
+
+day_number and task_number have no padding for the cargo command
 
 > [!NOTE]
 >

@@ -1,0 +1,11 @@
+{
+   "[jsonc]": {
+      "editor.defaultFormatter": "oxc.oxc-vscode"
+   },
+   "[typescript]": {
+      "editor.defaultFormatter": "oxc.oxc-vscode"
+   },
+   "editor.defaultFormatter": "oxc.oxc-vscode",
+   "oxc.configPath": "oxlint.config.ts",
+   "oxc.fmt.configPath": "oxfmt.config.ts"
+}

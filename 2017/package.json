@@ -1,0 +1,20 @@
+{
+   "name": "2017",
+   "private": true,
+   "type": "module",
+   "module": "index.ts",
+   "scripts": {
+      "day1-1": "bun src/day01/task1.ts",
+      "day1-2": "bun src/day01/task2.ts",
+      "format": "oxfmt",
+      "lint": "oxlint",
+      "typecheck": "tsc"
+   },
+   "devDependencies": {
+      "@types/bun": "latest",
+      "oxfmt": "^0.59.0",
+      "oxlint": "^1.74.0",
+      "oxlint-tsgolint": "^0.25.0",
+      "typescript": "7"
+   }
+}
