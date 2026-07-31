@@ -5,10 +5,10 @@
 to execute any solution, run the following command from `2016/` directory
 
 ```sh
-java run.java day{day_number}-{task_number}
+java run day{day_number}-{task_number}
 # eg.
-java run.java day1-2
-java run.java day10-1
+java run day1-2
+java run day10-1
 ```
 
 day_number and task_number have no padding for the gradlew command
