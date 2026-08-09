@@ -7,7 +7,7 @@ async function task2() {
 
    let result = 0;
    for (let i = 0; i < input.length; i++) {
-      if (input[i] == input[(i + input.length / 2) % input.length]) {
+      if (input[i] === input[(i + input.length / 2) % input.length]) {
          result += parseInt(input[i]!);
       }
    }

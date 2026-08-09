@@ -11,10 +11,10 @@ async function task1() {
 
          for (let i = 0; i < numbers.length - 1; i++) {
             for (let j = i + 1; j < numbers.length; j++) {
-               if (numbers[i]! % numbers[j]! == 0) {
+               if (numbers[i]! % numbers[j]! === 0) {
                   return numbers[i]! / numbers[j]!;
                }
-               if (numbers[j]! % numbers[i]! == 0) {
+               if (numbers[j]! % numbers[i]! === 0) {
                   return numbers[j]! / numbers[i]!;
                }
             }
