@@ -2,7 +2,7 @@ import path from "node:path";
 
 const PATH = path.join("inputs", "day06", "input.txt");
 
-async function task1() {
+async function task2() {
    let banks = (await Bun.file(PATH).text()).trim().split("\t").map(Number);
    const prevStates = [[...banks]];
 
@@ -38,5 +38,5 @@ async function task1() {
 }
 
 console.time("Task Done");
-await task1();
+await task2();
 console.timeEnd("Task Done");

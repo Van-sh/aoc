@@ -5,7 +5,7 @@ const PATH = path.join("inputs", "day07", "input.txt");
 const graph = new Map<string, ProgramMetaData>();
 const weights = new Map<string, number>();
 
-async function task1() {
+async function task2() {
    const lines = (await Bun.file(PATH).text()).trim().split("\n");
 
    const children = lines
@@ -71,5 +71,5 @@ type ProgramMetaData = {
 };
 
 console.time("Task Done");
-await task1();
+await task2();
 console.timeEnd("Task Done");

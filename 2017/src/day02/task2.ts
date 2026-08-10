@@ -2,7 +2,7 @@ import path from "node:path";
 
 const PATH = path.join("inputs", "day02", "input.txt");
 
-async function task1() {
+async function task2() {
    const result = (await Bun.file(PATH).text())
       .trim()
       .split("\n")
@@ -28,5 +28,5 @@ async function task1() {
 }
 
 console.time("Task Done");
-await task1();
+await task2();
 console.timeEnd("Task Done");

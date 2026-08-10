@@ -2,7 +2,7 @@ import path from "node:path";
 
 const PATH = path.join("inputs", "day03", "input.txt");
 
-async function task1() {
+async function task2() {
    const input = +(await Bun.file(PATH).text()).trim();
 
    const state = {
@@ -74,5 +74,5 @@ type State = {
 type Grid = { [K: `${number},${number}`]: number };
 
 console.time("Task Done");
-await task1();
+await task2();
 console.timeEnd("Task Done");
