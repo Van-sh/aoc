@@ -1,3 +1,5 @@
+// Looked stuff up after writing the code for hexagonal grids: https://www.redblobgames.com/grids/hexagons/
+
 import path from "node:path";
 
 const PATH = path.join("inputs", "day11", "input.txt");
