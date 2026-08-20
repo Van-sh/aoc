@@ -1,5 +1,5 @@
 {
-   "[jsonc]": {
+   "[json]": {
       "editor.defaultFormatter": "oxc.oxc-vscode"
    },
    "[typescript]": {

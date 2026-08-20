@@ -1,5 +1,5 @@
-# AOC 2015
 
+# AOC 2015
 ## Done in Java
 
 to execute any solution, run the following command from `2016/` directory
@@ -11,7 +11,7 @@ java run day1-2
 java run day10-1
 ```
 
-day_number and task_number have no padding for the gradlew command
+day_number and task_number have no padding for the run command
 
 > [!NOTE]
 >

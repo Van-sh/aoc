@@ -7,11 +7,9 @@ to execute any solution, run the following command from `2017/` directory
 ```sh
 bun day{day_number}-{task_number}
 # eg.
-bun day1-2
+bun day01-2
 bun day10-1
 ```
-
-day_number and task_number have no padding for the cargo command
 
 > [!NOTE]
 >
