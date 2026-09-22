@@ -5,7 +5,7 @@ const productFactorA = 16807;
 const productFactorB = 48271;
 const remainderFactor = 2147483647;
 
-async function task1() {
+async function task2() {
    let [a, b] = (await Bun.file(PATH).text())
       .trim()
       .split("\n")
@@ -35,5 +35,5 @@ async function task1() {
 }
 
 console.time("Task Done");
-await task1();
+await task2();
 console.timeEnd("Task Done");

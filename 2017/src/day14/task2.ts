@@ -2,7 +2,7 @@ import path from "node:path";
 
 const PATH = path.join("inputs", "day14", "input.txt");
 
-async function task1() {
+async function task2() {
    const key = (await Bun.file(PATH).text()).trim();
 
    const grid = Array.from({ length: 128 }).map(() => Array.from({ length: 128 }).map(() => false));
@@ -134,5 +134,5 @@ function knotHash(input: string) {
 }
 
 console.time("Task Done");
-await task1();
+await task2();
 console.timeEnd("Task Done");
