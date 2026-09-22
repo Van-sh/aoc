@@ -34,6 +34,8 @@
       "day14-2": "bun src/day14/task2.ts",
       "day15-1": "bun src/day15/task1.ts",
       "day15-2": "bun src/day15/task2.ts",
+      "day16-1": "bun src/day16/task1.ts",
+      "day16-2": "bun src/day16/task2.ts",
       "format": "oxfmt",
       "lint": "oxlint",
       "typecheck": "tsc"
